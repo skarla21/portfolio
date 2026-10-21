@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <rect width="640" height="480" fill="#14120e"/>
+  <rect x="28" y="28" width="584" height="424" fill="none" stroke="#f3efe4" stroke-width="6"/>
+  <text x="48" y="268" fill="#f3efe4" font-family="Georgia, serif" font-size="72">Chess</text>
+</svg>

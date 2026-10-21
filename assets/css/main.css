@@ -1,0 +1,79 @@
+@import '@fontsource/source-serif-4/latin-400.css';
+@import '@fontsource/source-serif-4/latin-400-italic.css';
+@import '@fontsource/source-serif-4/latin-ext-400.css';
+@import '@fontsource/source-serif-4/latin-ext-400-italic.css';
+@import '@fontsource/source-serif-4/greek-400.css';
+@import '@fontsource/source-serif-4/greek-400-italic.css';
+@import '@fontsource/source-sans-3/latin-400.css';
+@import '@fontsource/source-sans-3/latin-500.css';
+@import '@fontsource/source-sans-3/latin-ext-400.css';
+@import '@fontsource/source-sans-3/latin-ext-500.css';
+@import '@fontsource/source-sans-3/greek-400.css';
+@import '@fontsource/source-sans-3/greek-500.css';
+
+:root {
+  --nav-h: 5.75rem;
+  --paper: #f3efe4;
+  --ink: #14120e;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 4.25rem;
+  }
+}
+
+html {
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+::selection {
+  background: #d6f26a;
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+section {
+  scroll-margin-top: var(--nav-h);
+}
+
+#work {
+  scroll-margin-top: 0;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 60;
+  transform: translateY(-120%);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.6rem 0.9rem;
+}
+
+.skip:focus {
+  transform: translateY(0.75rem);
+}
+
+.nav-links {
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
