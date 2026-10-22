@@ -110,7 +110,7 @@ const hobbyImage = {
   football: '/hobbies/football.svg',
   travelling: '/hobbies/travelling.svg',
   chess: '/hobbies/chess.svg',
-  bouldering: '/hobbies/bouldering.svg',
+  climbing: '/hobbies/climbing.svg',
 }
 
 export const copies: Record<Locale, Copy> = {
@@ -118,9 +118,9 @@ export const copies: Record<Locale, Copy> = {
     ...contact,
     name: 'Αντώνης Σκαρλάτος',
     nameLines: ['Αντώνης', 'Σκαρλάτος'],
-    eyebrow: 'Χαρτοφυλάκιο / 2026',
+    eyebrow: 'Portfolio / 2026',
     place: 'Αθήνα',
-    lede: 'Προγραμματιστής. Φυσικός στην εκπαίδευση, αναλυτής δεδομένων στην πράξη.',
+    lede: 'Φυσικός στην εκπαίδευση, προγραμματιστής στην πράξη.',
     disciplines: 'Φυσική · Δεδομένα · Web',
     viewProjects: 'Δες τα έργα',
     scroll: 'Κύλιση',
@@ -130,11 +130,11 @@ export const copies: Record<Locale, Copy> = {
       'Απόφοιτος Φυσικής με μεταπτυχιακό στην Επιστήμη των Υπολογιστών και ενδιαφέρον για τον προγραμματισμό, την επιστήμη των δεδομένων και την ανάπτυξη ιστοσελίδων.',
       'Επιλυτής προβλημάτων με προσοχή στη λεπτομέρεια, αναλυτική σκέψη και έμφαση στη μαθηματική προσέγγιση.',
       'Ευέλικτος και προσαρμόσιμος σε νέους ρόλους και δεξιότητες.',
-      'Εργασία σε ερευνητικούς και βιομηχανικούς τομείς ως αναλυτής δεδομένων για 3 χρόνια.',
+      'Εργασία σε ερευνητικούς και βιομηχανικούς τομείς ως αναλυτής δεδομένων και προγραμματιστής για 3 χρόνια.',
       'Τώρα εργάζομαι σαν Web Developer.',
     ],
     journeyTitle: 'Η πορεία',
-    journeyLede: 'Από τη φυσική στο λογισμικό.',
+    journeyLede: 'Από τη φυσική στον προγραμματισμό.',
     supervisorsLabel: 'Επιβλέποντες',
     languagesLabel: 'Γλώσσες',
     certificatesLabel: 'Πιστοποιητικά',
@@ -203,7 +203,6 @@ export const copies: Record<Locale, Copy> = {
     languages: [
       'Ελληνικά (Μητρική)',
       'Αγγλικά (Πτυχίο Proficiency, Michigan)',
-      'Γερμανικά (B1, Βασική Επικοινωνία)',
     ],
     certificates: [
       { label: '12/2024 Udemy: Mastering TypeScript – 2024 Edition', href: certificates.typescript },
@@ -213,7 +212,7 @@ export const copies: Record<Locale, Copy> = {
     ],
     skillsLabel: 'Δεξιότητες',
     workKicker: '03 — Επιλεγμένα έργα',
-    workTitle: 'Ελεύθερα έργα.',
+    workTitle: 'Freelance projects.',
     workIntro: 'Ιστοσελίδες και εφαρμογές που έφτιαξα μόνος ή ως μέλος μιας μικρής ομάδας.',
     projects: [
       {
@@ -247,10 +246,11 @@ export const copies: Record<Locale, Copy> = {
       {
         id: 'orderoo',
         name: 'Orderoo',
-        dates: '02/2026–τώρα',
+        dates: '',
         stack: 'React, Next.js',
         summary:
-          'Μια γενική εφαρμογή παραγγελιών για κάθε είδους κατάστημα. Μέλος της ομάδας ανάπτυξης, σε μικρή ομάδα 3 ατόμων, σε περιβάλλον start-up.',
+          'Μια γενική εφαρμογή παραγγελιών για κάθε είδους καταστήματα. Μέλος της ομάδας ανάπτυξης, σε μικρή ομάδα 3 ατόμων, σε περιβάλλον start-up.',
+        href: 'https://orderoo.gr/el',
         accent: accents.orderoo,
       },
     ],
@@ -261,7 +261,7 @@ export const copies: Record<Locale, Copy> = {
       { id: 'football', label: 'Ποδόσφαιρο', image: hobbyImage.football },
       { id: 'travelling', label: 'Ταξίδια', image: hobbyImage.travelling },
       { id: 'chess', label: 'Σκάκι', image: hobbyImage.chess },
-      { id: 'bouldering', label: 'Μπούλντερινγκ', image: hobbyImage.bouldering },
+      { id: 'climbing', label: 'Αναρρίχηση', image: hobbyImage.climbing },
     ],
     contactKicker: '05 — Επικοινωνία',
     contactTitle: 'Ας επικοινωνήσουμε.',
@@ -293,7 +293,7 @@ export const copies: Record<Locale, Copy> = {
       'A Physics graduate with a MSc in Computer Science and an interest in programming, data science and web development.',
       'Problem-solver with attention to detail, analytical thinking and an emphasis on mathematical approach.',
       'Flexible and adaptable to new roles and skills.',
-      'Worked in research and industry fields as a data analyst and programmer for 3 years.',
+      'Worked in research and industry fields as a data analyst and software engineer for 3 years.',
       'Currently working as a Web Developer!',
     ],
     journeyTitle: 'The journey',
@@ -366,7 +366,6 @@ export const copies: Record<Locale, Copy> = {
     languages: [
       'Greek (Native Speaker)',
       'English (Certificate of Proficiency, Michigan)',
-      'German (B1, Basic Communication)',
     ],
     certificates: [
       { label: '12/2024 Udemy: Mastering TypeScript – 2024 Edition', href: certificates.typescript },
@@ -376,7 +375,7 @@ export const copies: Record<Locale, Copy> = {
     ],
     skillsLabel: 'Skills',
     workKicker: '03 — Selected work',
-    workTitle: 'Freelance work.',
+    workTitle: 'Freelance projects.',
     workIntro: 'Sites and applications built alone, or as part of a small team.',
     projects: [
       {
@@ -410,10 +409,11 @@ export const copies: Record<Locale, Copy> = {
       {
         id: 'orderoo',
         name: 'Orderoo',
-        dates: '02/2026–now',
+        dates: '',
         stack: 'React, Next.js',
         summary:
           'A white label ordering application for all kinds of stores. Working with a small team of 3 people in a start-up environment to develop this application. Built with React and Next.js.',
+        href: 'https://orderoo.gr/el',
         accent: accents.orderoo,
       },
     ],
@@ -424,7 +424,7 @@ export const copies: Record<Locale, Copy> = {
       { id: 'football', label: 'Football', image: hobbyImage.football },
       { id: 'travelling', label: 'Travelling', image: hobbyImage.travelling },
       { id: 'chess', label: 'Chess', image: hobbyImage.chess },
-      { id: 'bouldering', label: 'Bouldering', image: hobbyImage.bouldering },
+      { id: 'climbing', label: 'Climbing', image: hobbyImage.climbing },
     ],
     contactKicker: '05 — Contact',
     contactTitle: "Let's connect.",

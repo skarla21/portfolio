@@ -9,7 +9,7 @@ The portfolio is one vertical page. Greek is the default. `content/site.ts` hold
 3. Journey. One line and alternating milestones: Physics BSc, IASA research associate, Control and Computing MSc, IASA data research, Performance Technologies, FactSet. Languages and certificates after the line. Mist.
 4. Skills. One icon marquee. Mist. Not its own chapter in the nav. Narrow screens and reduced motion wrap the icons and do not loop.
 5. Selected work. A short freelance intro, then Mathe Paidi Mou Archaia, Figata Café, the accountant site, and Orderoo. Night. The only pinned section.
-6. Beyond the screen. Music, cinema, football, travelling, chess, bouldering. Paper. A placeholder follows the cursor on a fine pointer.
+6. Beyond the screen. Music, cinema, football, travelling, chess, climbing. Paper. A placeholder follows the cursor on a fine pointer.
 7. Contact. Email, phone, LinkedIn, GitHub, CV. Ink.
 
 Nav: the section links, an EL/EN switch, and CV. Changing language sets `<html lang>` and refreshes ScrollTrigger.

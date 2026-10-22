@@ -31,7 +31,7 @@ One page. Greek is the default; English is a nav switch, stored in a `locale` co
 - Timeline: Physics BSc (2015–2020, NKUA) and Control and Computing MSc (2020–2022, NKUA), both thesis titles, FactSet, Performance Technologies, both IASA roles, languages, and four certificates. The MSc thesis and the certificates that have a URL are links. Advanced SQL stays text.
 - Skills: one icon carousel of the kept technologies. Low-importance tools and the abstract skill phrases are not on the page.
 - Projects, in order: Μάθε Παιδί μου Αρχαία, Figata Café, the accountant site, Orderoo. Mathe, Figata, and the accountant site link out. Orderoo does not. No project screenshots yet, so each panel keeps a flat colour field.
-- Beyond the screen: music, cinema, football, travelling, chess, bouldering. A placeholder image follows a fine pointer; on a coarse pointer or reduced motion it sits with the word.
+- Beyond the screen: music, cinema, football, travelling, chess, climbing. A placeholder image follows a fine pointer; on a coarse pointer or reduced motion it sits with the word.
 - Contact: email, phone, LinkedIn, GitHub, and the CV file.
 - Driving licences stay in the PDF only. The German bank and the accountant stay unnamed.
 - A skip link, a fixed nav, and a reduced-motion path are required. Reduced motion, and any viewport under 768px, drops the pin, the marquee, the drawing line, and the word movement. The projects stack vertically. The line is already drawn.
@@ -45,7 +45,7 @@ Paper, mist, night, and ink, in that rhythm. Source Serif 4 for the large lines,
 - CV files: `public/cv/antonis-skarlatos-el.pdf` and `public/cv/antonis-skarlatos-en.pdf`. The nav and the contact link open the file for the current language.
 - Identity on the CV: Αντώνης Σκαρλάτος / Antonis Skarlatos, programmer, data analyst, and physicist, Athens 16232.
 - Email antwnis_skarlatos@yahoo.com, phone +30 6983696885, LinkedIn antonis-skarlatos-a41781212, GitHub skarla21.
-- Absent, and not to be invented: project screenshots, a named accounting client, the name of the German bank, and a portrait of Antonis. Orderoo has no public URL.
+- Absent, and not to be invented: project screenshots, a named accounting client, the name of the German bank, and a portrait of Antonis.
 
 ## Product Principles
 

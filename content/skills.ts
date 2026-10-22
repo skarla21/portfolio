@@ -1,5 +1,4 @@
 import {
-  siC,
   siCss,
   siExpress,
   siGit,
@@ -12,13 +11,10 @@ import {
   siNextdotjs,
   siNodedotjs,
   siNuxt,
-  siOpenjdk,
   siPython,
   siReact,
   siTypescript,
-  siVite,
   siVuedotjs,
-  siWebpack,
   type SimpleIcon,
 } from 'simple-icons'
 
@@ -40,9 +36,7 @@ export const skills: SkillMark[] = [
   fromIcon('CSS', siCss),
   fromIcon('Python', siPython),
   { title: 'SQL', letters: 'SQL', hex: '336791' },
-  fromIcon('Java', siOpenjdk),
   fromIcon('Bash', siGnubash),
-  fromIcon('C', siC),
   fromIcon('React', siReact),
   fromIcon('Next.js', siNextdotjs),
   fromIcon('Vue', siVuedotjs),
@@ -52,10 +46,7 @@ export const skills: SkillMark[] = [
   fromIcon('Git', siGit),
   fromIcon('MySQL', siMysql),
   fromIcon('MongoDB', siMongodb),
-  fromIcon('Vite', siVite),
-  fromIcon('Webpack', siWebpack),
   fromIcon('Linux', siLinux),
-  { title: 'Visual Studio Code', letters: 'VS', hex: '007ACC' },
 ]
 
 export function markColor(hex: string) {

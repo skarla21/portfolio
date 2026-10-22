@@ -78,7 +78,7 @@ useScrollScene(root, ({ gsap, ScrollTrigger, mm }) => {
       </article>
 
       <article
-        v-for="(project, index) in copy.projects"
+        v-for="project in copy.projects"
         :key="project.id"
         class="project-panel grid gap-8 px-6 py-16 md:px-10 lg:px-16"
       >
@@ -103,11 +103,7 @@ useScrollScene(root, ({ gsap, ScrollTrigger, mm }) => {
         <div
           class="flex min-h-56 items-end p-6 md:motion-safe:my-8 md:motion-safe:min-h-0"
           :style="{ backgroundColor: project.accent }"
-        >
-          <span class="font-serif text-[clamp(5rem,12vw,9rem)] leading-none text-ink" aria-hidden="true">
-            {{ String(index + 1).padStart(2, '0') }}
-          </span>
-        </div>
+        />
       </article>
     </div>
   </section>
