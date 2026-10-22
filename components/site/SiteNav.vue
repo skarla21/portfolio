@@ -4,7 +4,8 @@ import type { Locale } from '~/content/site'
 
 const { locale, copy, setLocale } = useLocale()
 
-function choose(next: Locale) {
+function toggleLocale() {
+  const next: Locale = locale.value === 'el' ? 'en' : 'el'
   setLocale(next)
 }
 </script>
@@ -16,26 +17,14 @@ function choose(next: Locale) {
         {{ copy.name }}
       </a>
       <div class="flex items-center gap-2 md:order-last">
-        <div class="flex items-center gap-1 text-sm" role="group" :aria-label="locale === 'el' ? 'Γλώσσα' : 'Language'">
-          <button
-            type="button"
-            class="px-1.5 py-1"
-            :class="locale === 'el' ? 'underline underline-offset-4' : 'text-mute'"
-            :aria-pressed="locale === 'el'"
-            @click="choose('el')"
-          >
-            EL
-          </button>
-          <button
-            type="button"
-            class="px-1.5 py-1"
-            :class="locale === 'en' ? 'underline underline-offset-4' : 'text-mute'"
-            :aria-pressed="locale === 'en'"
-            @click="choose('en')"
-          >
-            EN
-          </button>
-        </div>
+        <button
+          type="button"
+          class="px-1.5 py-1 text-sm underline underline-offset-4"
+          :aria-label="locale === 'el' ? 'Γλώσσα, Ελληνικά' : 'Language, English'"
+          @click="toggleLocale"
+        >
+          {{ locale === 'el' ? 'EL' : 'EN' }}
+        </button>
         <a
           :href="copy.cv"
           class="border border-ink px-2.5 py-1 text-sm hover:bg-ink hover:text-paper"

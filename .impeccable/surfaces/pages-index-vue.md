@@ -15,7 +15,7 @@ THESIS: The page is a single editorial scroll. The projects are the one pinned s
 
 OWN-WORLD: Warm paper, a cooler mist band, a night gallery, and an ink close. Source Serif 4 at display size, Source Sans 3 for the rest, Greek included. Lime, iris, clay, and a fourth field mark the project panels. No pixel scene, no Silkscreen, no photograph standing in for a missing screenshot.
 
-STORY: A visitor reads the Greek name, the profile, and a timeline from physics to FactSet, then the gallery holds while Mathe, Figata, the accountant site, and Orderoo move sideways. Hobbies are words, with a placeholder that follows the cursor. Contact is the address, the phone, and the CV for the current language.
+STORY: A visitor reads the Greek name, the profile, and a timeline from physics to FactSet, then the gallery holds while Mathe, Figata, the accountant site, and Orderoo move sideways. Hobbies are words, with a placeholder that follows the cursor. Contact is the address, the phone, and the English CV.
 
 FIRST VIEWPORT: Αντώνης Σκαρλάτος, large, on paper. Athens and the year at the top. The projects link and a scroll cue at the bottom. The nav stays fixed, with EL/EN and CV.
 

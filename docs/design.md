@@ -1,18 +1,19 @@
 # Scroll page
 
-The portfolio is one vertical page. Greek is the default. `content/site.ts` holds the same copy shape for `el` and `en`. Do not add a screenshot, a client name, a bank name, or a portrait.
+The portfolio is one vertical page. Greek is the default. `content/site.ts` holds the same copy shape for `el` and `en`. Do not add a project screenshot, the accountant's name, or the bank name. Antonis's only portrait is the introduction circle from `public/imgs/pfp.jpg`. Named recommenders and their portraits are allowed.
 
 ## Sections
 
 1. Hero. Name, Athens, the disciplines line, Physics · Data · Web. Paper.
-2. Introduction. The profile, sentence by sentence. Paper.
+2. Introduction. A small circular portrait on the left of the profile, sentence by sentence. Paper.
 3. Journey. One line and alternating milestones: Physics BSc, IASA research associate, Control and Computing MSc, IASA data research, Performance Technologies, FactSet. Languages and certificates after the line. Mist.
 4. Skills. One icon marquee. Mist. Not its own chapter in the nav. Narrow screens and reduced motion wrap the icons and do not loop.
 5. Selected work. A short freelance intro, then Mathe Paidi Mou Archaia, Figata Café, the accountant site, and Orderoo. Night. The only pinned section.
-6. Beyond the screen. Music, cinema, football, travelling, chess, climbing. Paper. A placeholder follows the cursor on a fine pointer.
-7. Contact. Email, phone, LinkedIn, GitHub, CV. Ink.
+6. Recommendations. Kicker `04`. Greek: «Τι είπαν αυτοί που συνεργαστήκαμε». English: «From people I've worked with». Three short quotes: Nikos Dimitrakopoulos (Full Stack Developer, Orderoo), Thodoris Delbederis (Figata Cafe), Vasileios Varveroglou (Full Stack Developer, FactSet). Circular portraits and LinkedIn links. Mist.
+7. Beyond the screen. Music, cinema, football, travelling, chess, climbing. Paper. Kicker `05`. A placeholder follows the cursor on a fine pointer.
+8. Contact. Email, phone, LinkedIn, GitHub, CV. Ink. Kicker `06`.
 
-Nav: the section links, an EL/EN switch, and CV. Changing language sets `<html lang>` and refreshes ScrollTrigger.
+Nav: the section links—including «Συστάσεις» / «Recommendations» between Work and Beyond, href `#recommendations`—the current language (one label, click switches), and CV. Changing language sets `<html lang>` and refreshes ScrollTrigger. The CV link always opens the English file.
 
 ## Motion
 
@@ -20,6 +21,7 @@ GSAP ScrollTrigger, registered after mount. `gsap.matchMedia()` is the only cont
 
 - Hero: the two name lines rise on load. The headline drifts a short distance with scroll.
 - Introduction and journey cards: a short rise as they enter, once.
+- Recommendations quotes: the same rise as they enter, once. Desktop query only.
 - Journey line: `scaleY` scrubbed from the top. Without that query the line is already full height.
 - Projects: the section pins, the inner track moves on `x` with `ease: "none"`, and the distance is the measured overflow. Titles rise with `containerAnimation`. Opacity stays at 1.
 - Hobbies: a slight scrubbed drift. The cursor image uses `translate3d` and does not run for a coarse pointer or reduced motion.

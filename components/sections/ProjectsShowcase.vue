@@ -27,7 +27,7 @@ useScrollScene(root, ({ gsap, ScrollTrigger, mm }) => {
     sizePanels()
     ScrollTrigger.addEventListener('refreshInit', sizePanels)
 
-    const scrollTween = gsap.to(row, {
+    gsap.to(row, {
       x: () => -distance(),
       ease: 'none',
       scrollTrigger: {
@@ -39,21 +39,6 @@ useScrollScene(root, ({ gsap, ScrollTrigger, mm }) => {
         invalidateOnRefresh: true,
         anticipatePin: 1,
       },
-    })
-
-    section.querySelectorAll('.js-rise').forEach((title) => {
-      gsap.from(title, {
-        y: 40,
-        duration: 0.8,
-        ease: 'power3.out',
-        immediateRender: false,
-        scrollTrigger: {
-          trigger: title,
-          containerAnimation: scrollTween,
-          start: 'left 70%',
-          once: true,
-        },
-      })
     })
 
     return () => {
@@ -71,7 +56,7 @@ useScrollScene(root, ({ gsap, ScrollTrigger, mm }) => {
     <div ref="track" class="flex flex-col md:motion-safe:h-dvh md:motion-safe:w-max md:motion-safe:flex-row">
       <article class="project-panel flex flex-col justify-center px-6 py-20 md:px-10 lg:px-16">
         <p class="text-xs uppercase tracking-[0.22em] text-night-soft">{{ copy.workKicker }}</p>
-        <h2 class="js-rise mt-6 max-w-4xl font-serif text-[clamp(3rem,6.5vw,6.25rem)] leading-[0.92] tracking-tight">
+        <h2 class="mt-6 max-w-4xl font-serif text-[clamp(3rem,6.5vw,6.25rem)] leading-[0.92] tracking-tight">
           {{ copy.workTitle }}
         </h2>
         <p class="mt-6 max-w-md text-lg leading-relaxed">{{ copy.workIntro }}</p>
@@ -86,7 +71,7 @@ useScrollScene(root, ({ gsap, ScrollTrigger, mm }) => {
           <p class="text-sm uppercase tracking-[0.16em] text-night-soft">
             {{ project.stack }}<span v-if="project.dates"> / {{ project.dates }}</span>
           </p>
-          <h3 class="js-rise mt-6 font-serif text-[clamp(2.5rem,4.6vw,4.6rem)] leading-[0.92] tracking-tight">
+          <h3 class="mt-6 font-serif text-[clamp(2.5rem,4.6vw,4.6rem)] leading-[0.92] tracking-tight">
             <a
               v-if="project.href"
               :href="project.href"

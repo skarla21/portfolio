@@ -32,14 +32,26 @@ useScrollScene(root, ({ gsap, mm }) => {
         <h2 class="font-serif text-[clamp(4.5rem,8vw,7.5rem)] leading-none tracking-tight">01</h2>
         <p class="mt-4 text-xs uppercase tracking-[0.22em]">{{ copy.introLabel }}</p>
       </div>
-      <div class="flex flex-col gap-8 md:col-span-8">
-        <p
-          v-for="(line, index) in copy.profile"
-          :key="index"
-          class="js-rise max-w-3xl font-serif text-[clamp(1.7rem,2.7vw,2.45rem)] leading-[1.28]"
-        >
-          {{ line }}
-        </p>
+      <div class="flex items-start gap-5 md:col-span-8 md:gap-8">
+        <div class="relative size-[7.5rem] shrink-0 overflow-hidden rounded-full ring-1 ring-ink/15 md:size-[10.5rem]">
+          <!-- 860px window at (634, 126) on the 1818×1228 photo. -->
+          <img
+            src="/imgs/pfp.jpg"
+            :alt="copy.name"
+            width="1818"
+            height="1228"
+            class="absolute left-[-73.721%] top-[-14.651%] h-auto w-[211.395%] max-w-none"
+          >
+        </div>
+        <div class="flex min-w-0 flex-col gap-8">
+          <p
+            v-for="(line, index) in copy.profile"
+            :key="index"
+            class="js-rise max-w-3xl font-serif text-[clamp(1.7rem,2.7vw,2.45rem)] leading-[1.28]"
+          >
+            {{ line }}
+          </p>
+        </div>
       </div>
     </div>
   </section>

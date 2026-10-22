@@ -10,6 +10,9 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.' },
       ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
     },
   },
 })
