@@ -21,16 +21,18 @@ useSeoMeta({
 </script>
 
 <template>
-  <a class="skip" href="#top">{{ copy.skip }}</a>
-  <SiteNav />
-  <main>
-    <HeroSection />
-    <IntroSection />
-    <JourneySection />
-    <SkillsSection />
-    <ProjectsShowcase />
-    <RecommendationsSection />
-    <HobbiesSection />
-    <ContactSection />
-  </main>
+  <div>
+    <a class="skip" href="#top">{{ copy.skip }}</a>
+    <SiteNav />
+    <main>
+      <HeroSection />
+      <IntroSection />
+      <JourneySection />
+      <SkillsSection />
+      <ProjectsShowcase />
+      <RecommendationsSection />
+      <HobbiesSection />
+      <ContactSection />
+    </main>
+  </div>
 </template>

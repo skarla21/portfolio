@@ -51,7 +51,7 @@ useScrollScene(root, ({ gsap, mm }) => {
             height="48"
             class="h-12 w-12 shrink-0 rounded-full object-cover"
             :style="{ objectPosition: recommendation.imagePosition }"
-          />
+          >
           <div>
             <p class="text-sm font-medium leading-snug">
               {{ recommendation.name }}

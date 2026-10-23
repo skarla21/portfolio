@@ -4,7 +4,9 @@ import { useLocale } from '~/composables/useLocale'
 const { locale } = useLocale()
 
 useHead({
-  htmlAttrs: computed(() => ({ lang: locale.value })),
+  htmlAttrs: {
+    lang: () => locale.value,
+  },
 })
 
 watch(locale, async () => {

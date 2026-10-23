@@ -87,7 +87,7 @@ useScrollScene(root, ({ gsap, mm }) => {
           @pointermove="place"
           @pointerleave="hide"
         >{{ hobby.label }}</span>
-        <img v-if="!chase" class="hobby-still" :src="hobby.image" alt="" />
+        <img v-if="!chase" class="hobby-still" :src="hobby.image" alt="">
       </div>
     </div>
 
@@ -97,7 +97,7 @@ useScrollScene(root, ({ gsap, mm }) => {
       class="hobby-follow"
       :src="followSrc || undefined"
       alt=""
-    />
+    >
   </section>
 </template>
 
