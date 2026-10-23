@@ -5,13 +5,30 @@ import { useLocale } from '~/composables/useLocale'
 
 const { copy } = useLocale()
 const loopCopies = 6
+const run = ref<HTMLElement | null>(null)
+
+function restartMarquee() {
+  const el = run.value
+  if (!el) return
+  el.style.animation = 'none'
+  void el.offsetWidth
+  el.style.animation = ''
+}
+
+function onPageShow(event: PageTransitionEvent) {
+  if (!event.persisted) return
+  restartMarquee()
+}
+
+onMounted(() => window.addEventListener('pageshow', onPageShow))
+onUnmounted(() => window.removeEventListener('pageshow', onPageShow))
 </script>
 
 <template>
   <section class="bg-mist px-6 py-16 md:px-10 md:py-20 lg:px-16" aria-labelledby="skills-heading">
     <h2 id="skills-heading" class="sr-only">{{ copy.skillsLabel }}</h2>
     <div class="skill-viewport">
-      <div class="skill-run" :style="{ '--copies': loopCopies }">
+      <div ref="run" class="skill-run" :style="{ '--copies': loopCopies }">
         <ul
           v-for="copyIndex in loopCopies"
           :key="copyIndex"
@@ -49,6 +66,13 @@ const loopCopies = 6
   gap: 1rem 1.15rem;
 }
 
+.skill-row > li {
+  flex: 0 0 4.5rem;
+  width: 4.5rem;
+  min-width: 4.5rem;
+  max-width: 4.5rem;
+}
+
 .skill-extra {
   display: none;
 }
@@ -81,7 +105,10 @@ const loopCopies = 6
   .skill-row,
   .skill-extra {
     display: flex;
+    flex: 0 0 auto;
     flex-wrap: nowrap;
+    width: max-content;
+    min-width: max-content;
     gap: 1.15rem;
     padding-right: 1.15rem;
   }

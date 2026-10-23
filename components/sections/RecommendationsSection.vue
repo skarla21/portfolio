@@ -63,7 +63,7 @@ useScrollScene(root, ({ gsap, mm }) => {
               :href="recommendation.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-1 inline-block text-sm underline underline-offset-4"
+              class="mt-1 inline-block text-sm underline underline-offset-4 hover:text-[#0A66C2]"
             >
               LinkedIn
             </a>

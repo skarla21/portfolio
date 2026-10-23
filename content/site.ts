@@ -31,12 +31,20 @@ export type Project = {
   summary: string;
   href?: string;
   accent: string;
+  video?: string;
+  poster?: string;
+};
+
+export type HobbyMedia = {
+  type: "image" | "video";
+  src: string;
 };
 
 export type Hobby = {
   id: string;
   label: string;
-  image: string;
+  still?: string;
+  media: HobbyMedia[];
 };
 
 export type Recommendation = {
@@ -120,14 +128,75 @@ const accents = {
   orderoo: "#9fd0c8",
 };
 
-const hobbyImage = {
-  music: "/hobbies/music.svg",
-  cinema: "/hobbies/cinema.svg",
-  football: "/hobbies/football.svg",
-  travelling: "/hobbies/travelling.svg",
-  chess: "/hobbies/chess.svg",
-  climbing: "/hobbies/climbing.svg",
+const projectMedia: Record<string, { video: string; poster: string }> = {
+  mathe: { video: "/projects/mathe.mp4", poster: "/projects/mathe.webp" },
+  figata: { video: "/projects/figata.mp4", poster: "/projects/figata.webp" },
+  accountant: {
+    video: "/projects/accountant.mp4",
+    poster: "/projects/accountant.webp",
+  },
+  orderoo: { video: "/projects/orderoo.mp4", poster: "/projects/orderoo.webp" },
 };
+
+function withProjectMedia(project: Project): Project {
+  const media = projectMedia[project.id];
+  if (!media) return project;
+  return { ...project, video: media.video, poster: media.poster };
+}
+
+const hobbyOrder = [
+  "music",
+  "cinema",
+  "football",
+  "travelling",
+  "chess",
+  "climbing",
+] as const;
+
+const hobbyAssets: Record<
+  (typeof hobbyOrder)[number],
+  { still?: string; media: HobbyMedia[] }
+> = {
+  music: {
+    media: [],
+  },
+  cinema: {
+    media: [],
+  },
+  football: {
+    still: "/hobbies/football/football.jpg",
+    media: [
+      { type: "image", src: "/hobbies/football/football.jpg" },
+      { type: "video", src: "/hobbies/football/penalty.mp4" },
+    ],
+  },
+  travelling: {
+    still: "/hobbies/travelling/london.jpg",
+    media: [
+      { type: "image", src: "/hobbies/travelling/london.jpg" },
+      { type: "image", src: "/hobbies/travelling/florence.jpg" },
+      { type: "image", src: "/hobbies/travelling/salzburg.jpg" },
+      { type: "image", src: "/hobbies/travelling/andros.jpg" },
+    ],
+  },
+  chess: {
+    media: [{ type: "video", src: "/hobbies/chess/chess.mp4" }],
+  },
+  climbing: {
+    media: [{ type: "video", src: "/hobbies/climbing/climbing.mp4" }],
+  },
+};
+
+function hobbyList(
+  labels: Record<(typeof hobbyOrder)[number], string>,
+): Hobby[] {
+  return hobbyOrder.map((id) => ({
+    id,
+    label: labels[id],
+    still: hobbyAssets[id].still,
+    media: hobbyAssets[id].media,
+  }));
+}
 
 export const copies: Record<Locale, Copy> = {
   el: {
@@ -137,7 +206,7 @@ export const copies: Record<Locale, Copy> = {
     eyebrow: "Portfolio / 2026",
     place: "Αθήνα",
     lede: "Φυσικός στην εκπαίδευση, προγραμματιστής στην πράξη.",
-    disciplines: "Φυσική · Δεδομένα · Web",
+    disciplines: "Φυσική · Data · Web",
     viewProjects: "Δες τα έργα",
     scroll: "Κύλιση",
     skip: "Μετάβαση στο περιεχόμενο",
@@ -243,7 +312,7 @@ export const copies: Record<Locale, Copy> = {
         name: "Μάθε Παιδί μου Αρχαία",
         dates: "",
         stack: "Vue, Nuxt",
-        summary: "Σύγχρονη εκπαιδευτική πλατφόρμα, χτισμένη με Vue και Nuxt.",
+        summary: "Σύγχρονη εκπαιδευτική πλατφόρμα, ανεπτυγμένη με Vue και Nuxt.",
         href: "https://mathearchaia.gr",
         accent: accents.mathe,
       },
@@ -272,8 +341,7 @@ export const copies: Record<Locale, Copy> = {
         name: "Orderoo",
         dates: "",
         stack: "React, Next.js",
-        summary:
-          "Μια γενική εφαρμογή παραγγελιών για κάθε είδους καταστήματα. Μέλος της ομάδας ανάπτυξης, σε μικρή ομάδα 3 ατόμων, σε περιβάλλον start-up.",
+        summary: "Μέλος της ομάδας ανάπτυξης, σε περιβάλλον start-up.",
         href: "https://orderoo.gr/el",
         accent: accents.orderoo,
       },
@@ -313,14 +381,14 @@ export const copies: Record<Locale, Copy> = {
       },
     ],
     beyondTitle: "Πέρα από την οθόνη",
-    hobbies: [
-      { id: "music", label: "Μουσική", image: hobbyImage.music },
-      { id: "cinema", label: "Σινεμά", image: hobbyImage.cinema },
-      { id: "football", label: "Ποδόσφαιρο", image: hobbyImage.football },
-      { id: "travelling", label: "Ταξίδια", image: hobbyImage.travelling },
-      { id: "chess", label: "Σκάκι", image: hobbyImage.chess },
-      { id: "climbing", label: "Αναρρίχηση", image: hobbyImage.climbing },
-    ],
+    hobbies: hobbyList({
+      music: "Μουσική",
+      cinema: "Σινεμά",
+      football: "Ποδόσφαιρο",
+      travelling: "Ταξίδια",
+      chess: "Σκάκι",
+      climbing: "Αναρρίχηση",
+    }),
     contactKicker: "06 — Επικοινωνία",
     contactTitle: "Ας επικοινωνήσουμε.",
     cvLabel: "Βιογραφικό",
@@ -483,8 +551,7 @@ export const copies: Record<Locale, Copy> = {
         name: "Orderoo",
         dates: "",
         stack: "React, Next.js",
-        summary:
-          "A white label ordering application for all kinds of stores. Working with a small team of 3 people in a start-up environment to develop this application. Built with React and Next.js.",
+        summary: "Member of the development team, in a start-up environment.",
         href: "https://orderoo.gr/el",
         accent: accents.orderoo,
       },
@@ -524,14 +591,14 @@ export const copies: Record<Locale, Copy> = {
       },
     ],
     beyondTitle: "Beyond the screen",
-    hobbies: [
-      { id: "music", label: "Music", image: hobbyImage.music },
-      { id: "cinema", label: "Cinema", image: hobbyImage.cinema },
-      { id: "football", label: "Football", image: hobbyImage.football },
-      { id: "travelling", label: "Travelling", image: hobbyImage.travelling },
-      { id: "chess", label: "Chess", image: hobbyImage.chess },
-      { id: "climbing", label: "Climbing", image: hobbyImage.climbing },
-    ],
+    hobbies: hobbyList({
+      music: "Music",
+      cinema: "Cinema",
+      football: "Football",
+      travelling: "Travelling",
+      chess: "Chess",
+      climbing: "Climbing",
+    }),
     contactKicker: "06 — Contact",
     contactTitle: "Let's connect.",
     cvLabel: "CV",
@@ -548,3 +615,7 @@ export const copies: Record<Locale, Copy> = {
     ],
   },
 };
+
+for (const copy of Object.values(copies)) {
+  copy.projects = copy.projects.map(withProjectMedia);
+}

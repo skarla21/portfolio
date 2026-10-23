@@ -24,7 +24,7 @@ GSAP ScrollTrigger, registered after mount. `gsap.matchMedia()` is the only cont
 - Recommendations quotes: the same rise as they enter, once. Desktop query only.
 - Journey line: `scaleY` scrubbed from the top. Without that query the line is already full height.
 - Projects: the section pins, the inner track moves on `x` with `ease: "none"`, and the distance is the measured overflow. Titles rise with `containerAnimation`. Opacity stays at 1.
-- Hobbies: a slight scrubbed drift. The cursor image uses `translate3d` and does not run for a coarse pointer or reduced motion.
+- Hobbies: a slight scrubbed drift. On a fine pointer, a hobby with media rolls the word and shows a borderless image or video whose box matches the media's aspect ratio, top-left on the cursor. Empty hobbies (music, cinema) do not open a card. The card's far edges lag with skew, then it squares up. It does not run for a coarse pointer or reduced motion; those show a still beside the word when one exists.
 - Skills marquee: CSS transform, desktop motion only. It pauses while an icon is hovered or focused.
 
 After fonts load, `ScrollTrigger.refresh()`. Revert the matchMedia on unmount. Do not add Lenis, and do not pin any other section.

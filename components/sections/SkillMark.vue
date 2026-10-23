@@ -32,6 +32,10 @@ const color = computed(() => markColor(props.skill.hex))
   display: grid;
   width: 4.5rem;
   height: 4.5rem;
+  min-width: 4.5rem;
+  min-height: 4.5rem;
+  max-width: 4.5rem;
+  max-height: 4.5rem;
   place-items: center;
   border-radius: 999px;
   background: #14120e;
@@ -41,6 +45,10 @@ const color = computed(() => markColor(props.skill.hex))
 .mark svg {
   width: 1.7rem;
   height: 1.7rem;
+  min-width: 0;
+  min-height: 0;
+  max-width: 1.7rem;
+  max-height: 1.7rem;
 }
 
 .letters {
