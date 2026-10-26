@@ -38,6 +38,7 @@ export type Project = {
 export type HobbyMedia = {
   type: "image" | "video";
   src: string;
+  scale?: number;
 };
 
 export type Hobby = {
@@ -183,7 +184,7 @@ const hobbyAssets: Record<
     media: [{ type: "video", src: "/hobbies/chess/chess.mp4" }],
   },
   climbing: {
-    media: [{ type: "video", src: "/hobbies/climbing/climbing.mp4" }],
+    media: [{ type: "video", src: "/hobbies/climbing/climbing.mp4", scale: 0.67 }],
   },
 };
 
@@ -312,7 +313,8 @@ export const copies: Record<Locale, Copy> = {
         name: "Μάθε Παιδί μου Αρχαία",
         dates: "",
         stack: "Vue, Nuxt",
-        summary: "Σύγχρονη εκπαιδευτική πλατφόρμα, ανεπτυγμένη με Vue και Nuxt.",
+        summary:
+          "Σύγχρονη εκπαιδευτική πλατφόρμα, ανεπτυγμένη με Vue και Nuxt.",
         href: "https://mathearchaia.gr",
         accent: accents.mathe,
       },
@@ -362,7 +364,7 @@ export const copies: Record<Locale, Copy> = {
       {
         id: "thodoris",
         name: "Θοδωρής Δελβεδέρης",
-        role: "Ιδιοκτήτης, Figata Cafe",
+        role: "Ιδιοκτήτης επιχείρησης, Figata Cafe",
         quote:
           "Έφτιαξε την ιστοσελίδα του Figata. Ήξερε τι προϊόν ήθελα και το παρέδωσε γρήγορα, όπως είχαμε συμφωνήσει.",
         href: "https://www.linkedin.com/in/thodoris-delbederis-7223631b0/",
