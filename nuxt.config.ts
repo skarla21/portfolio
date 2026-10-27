@@ -13,6 +13,10 @@ export default defineNuxtConfig({
           content:
             'Αντώνης Σκαρλάτος (Antonis Skarlatos). Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.',
         },
+        {
+          name: 'google-site-verification',
+          content: 'Wd7xFHb156XpM3AuDzsTmWJ9IxFTnssYqb0kULsb_EE',
+        },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
