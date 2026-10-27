@@ -120,7 +120,7 @@ export const siteUrl = "https://antonis-skarlatos.vercel.app";
 export const legacyProductionHost = "portfolio-dun-pi-hv8qwmqz93.vercel.app";
 
 export const share = {
-  title: "Antonis Skarlatos — Αντώνης Σκαρλάτος",
+  title: "Antonis Skarlatos - Portfolio",
   description:
     "Web developer, data scientist, and physicist in Athens. Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
   image: `${siteUrl}/og.png`,
@@ -440,7 +440,7 @@ export const copies: Record<Locale, Copy> = {
     phoneLabel: "Τηλέφωνο",
     cvLabel: "Βιογραφικό",
     address: "Αθήνα, 16232",
-    seoTitle: "Αντώνης Σκαρλάτος (Antonis Skarlatos)",
+    seoTitle: "Antonis Skarlatos - Portfolio",
     seoDescription:
       "Αντώνης Σκαρλάτος (Antonis Skarlatos). Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
     nav: [
@@ -652,7 +652,7 @@ export const copies: Record<Locale, Copy> = {
     phoneLabel: "Phone",
     cvLabel: "CV",
     address: "Athens, 16232",
-    seoTitle: "Antonis Skarlatos (Αντώνης Σκαρλάτος)",
+    seoTitle: "Antonis Skarlatos - Portfolio",
     seoDescription:
       "Antonis Skarlatos (Αντώνης Σκαρλάτος). Web developer, data scientist, and physicist in Athens.",
     nav: [

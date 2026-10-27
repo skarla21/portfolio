@@ -1,28 +1,37 @@
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint'],
-  css: ['~/assets/css/main.css'],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/eslint"],
+  css: ["~/assets/css/main.css"],
   app: {
     head: {
-      htmlAttrs: { lang: 'el' },
-      title: 'Αντώνης Σκαρλάτος (Antonis Skarlatos)',
+      htmlAttrs: { lang: "el" },
+      title: "Antonis Skarlatos - Portfolio",
       meta: [
         {
-          name: 'description',
+          name: "description",
           content:
-            'Αντώνης Σκαρλάτος (Antonis Skarlatos). Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.',
+            "Αντώνης Σκαρλάτος (Antonis Skarlatos). Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
         },
         {
-          name: 'google-site-verification',
-          content: 'Wd7xFHb156XpM3AuDzsTmWJ9IxFTnssYqb0kULsb_EE',
+          name: "google-site-verification",
+          content: "Wd7xFHb156XpM3AuDzsTmWJ9IxFTnssYqb0kULsb_EE",
         },
       ],
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "32x32",
+          href: "/favicon-32.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/apple-touch-icon.png",
+        },
       ],
     },
   },
-})
+});
