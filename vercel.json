@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "portfolio-dun-pi-hv8qwmqz93.vercel.app"
+        }
+      ],
+      "destination": "https://antonis-skarlatos.vercel.app/:path*",
+      "permanent": true
+    }
+  ]
+}
