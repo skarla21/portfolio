@@ -96,6 +96,7 @@ export type Copy = {
   emailLabel: string;
   phoneLabel: string;
   address: string;
+  seoTitle: string;
   seoDescription: string;
   nav: { href: string; label: string }[];
   email: string;
@@ -111,6 +112,43 @@ const contact = {
   phoneHref: "tel:+306983696885",
   linkedin: "https://www.linkedin.com/in/antonis-skarlatos-a41781212",
   github: "https://github.com/skarla21",
+};
+
+export const siteUrl = "https://antonis-skarlatos.vercel.app";
+
+export const legacyProductionHost = "portfolio-dun-pi-hv8qwmqz93.vercel.app";
+
+export const share = {
+  title: "Antonis Skarlatos — Αντώνης Σκαρλάτος",
+  description:
+    "Web developer, data scientist, and physicist in Athens. Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
+  image: `${siteUrl}/og.png`,
+};
+
+export const profilePage = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  url: siteUrl,
+  mainEntity: {
+    "@type": "Person",
+    name: "Antonis Skarlatos",
+    alternateName: "Αντώνης Σκαρλάτος",
+    jobTitle: ["Web Developer", "Data analyst", "Physicist"],
+    worksFor: {
+      "@type": "Organization",
+      name: "FactSet",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Athens",
+      postalCode: "16232",
+      addressCountry: "GR",
+    },
+    email: contact.email,
+    telephone: contact.phone,
+    sameAs: [contact.linkedin, contact.github],
+    url: siteUrl,
+  },
 };
 
 const pergamos = "https://pergamos.lib.uoa.gr/en/item/uoadl:3310771#fields";
@@ -402,8 +440,9 @@ export const copies: Record<Locale, Copy> = {
     cvLabel: "Βιογραφικό",
     cv: "/cv/antonis-skarlatos-en.pdf",
     address: "Αθήνα, 16232",
+    seoTitle: "Αντώνης Σκαρλάτος (Antonis Skarlatos)",
     seoDescription:
-      "Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
+      "Αντώνης Σκαρλάτος (Antonis Skarlatos). Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
     nav: [
       { href: "#intro", label: "Εισαγωγή" },
       { href: "#journey", label: "Πορεία" },
@@ -614,7 +653,9 @@ export const copies: Record<Locale, Copy> = {
     cvLabel: "CV",
     cv: "/cv/antonis-skarlatos-en.pdf",
     address: "Athens, 16232",
-    seoDescription: "Web developer, data scientist, and physicist in Athens.",
+    seoTitle: "Antonis Skarlatos (Αντώνης Σκαρλάτος)",
+    seoDescription:
+      "Antonis Skarlatos (Αντώνης Σκαρλάτος). Web developer, data scientist, and physicist in Athens.",
     nav: [
       { href: "#intro", label: "Intro" },
       { href: "#journey", label: "Journey" },
