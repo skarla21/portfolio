@@ -15,14 +15,14 @@ const color = computed(() => markColor(props.skill.hex))
       <path fill="currentColor" fill-rule="evenodd" :d="skill.path" />
     </svg>
     <span v-else class="letters" aria-hidden="true">{{ skill.letters }}</span>
-    <span class="tip">{{ skill.title }}</span>
+    <span class="tip" aria-hidden="true">{{ skill.title }}</span>
   </button>
   <span v-else class="mark">
     <svg v-if="skill.path" viewBox="0 0 24 24" aria-hidden="true">
       <path fill="currentColor" fill-rule="evenodd" :d="skill.path" />
     </svg>
     <span v-else class="letters">{{ skill.letters }}</span>
-    <span class="tip">{{ skill.title }}</span>
+    <span class="tip" aria-hidden="true">{{ skill.title }}</span>
   </span>
 </template>
 
@@ -57,25 +57,8 @@ const color = computed(() => markColor(props.skill.hex))
   letter-spacing: 0.04em;
 }
 
-.tip {
-  position: absolute;
-  bottom: calc(100% + 0.45rem);
-  left: 50%;
-  z-index: 1;
-  padding: 0.2rem 0.45rem;
-  background: #d6f26a;
-  color: #14120e;
-  font-family: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.75rem;
-  line-height: 1.2;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.mark:hover .tip,
-.mark:focus-visible .tip {
-  opacity: 1;
+.mark:hover,
+.mark:focus-visible {
+  z-index: 3;
 }
 </style>

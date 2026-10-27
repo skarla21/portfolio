@@ -93,6 +93,8 @@ export type Copy = {
   contactTitle: string;
   cvLabel: string;
   cv: string;
+  emailLabel: string;
+  phoneLabel: string;
   address: string;
   seoDescription: string;
   nav: { href: string; label: string }[];
@@ -184,7 +186,9 @@ const hobbyAssets: Record<
     media: [{ type: "video", src: "/hobbies/chess/chess.mp4" }],
   },
   climbing: {
-    media: [{ type: "video", src: "/hobbies/climbing/climbing.mp4", scale: 0.67 }],
+    media: [
+      { type: "video", src: "/hobbies/climbing/climbing.mp4", scale: 0.67 },
+    ],
   },
 };
 
@@ -393,6 +397,8 @@ export const copies: Record<Locale, Copy> = {
     }),
     contactKicker: "06 — Επικοινωνία",
     contactTitle: "Ας επικοινωνήσουμε.",
+    emailLabel: "E-mail",
+    phoneLabel: "Τηλέφωνο",
     cvLabel: "Βιογραφικό",
     cv: "/cv/antonis-skarlatos-en.pdf",
     address: "Αθήνα, 16232",
@@ -413,7 +419,7 @@ export const copies: Record<Locale, Copy> = {
     nameLines: ["Antonis", "Skarlatos"],
     eyebrow: "Portfolio / 2026",
     place: "Athens",
-    lede: "Physicist by training, programmer by practice.",
+    lede: "Physicist by training, developer by practice.",
     disciplines: "Physics · Data · Web",
     viewProjects: "View projects",
     scroll: "Scroll",
@@ -603,6 +609,8 @@ export const copies: Record<Locale, Copy> = {
     }),
     contactKicker: "06 — Contact",
     contactTitle: "Let's connect.",
+    emailLabel: "E-mail",
+    phoneLabel: "Phone",
     cvLabel: "CV",
     cv: "/cv/antonis-skarlatos-en.pdf",
     address: "Athens, 16232",

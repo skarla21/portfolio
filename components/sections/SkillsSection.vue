@@ -49,7 +49,7 @@ onUnmounted(() => window.removeEventListener('pageshow', onPageShow))
 .skill-viewport {
   overflow: hidden;
   margin-inline: -1.5rem;
-  padding-top: 2.4rem;
+  padding-top: 3.4rem;
 }
 
 .skill-run {

@@ -44,7 +44,7 @@ Paper, mist, night, and ink, in that rhythm. Source Serif 4 for the large lines,
 ## Evidence on Hand
 
 - CV files: `public/cv/antonis-skarlatos-el.pdf` and `public/cv/antonis-skarlatos-en.pdf`. The nav and the contact link always open the English CV. The Greek file stays in the repo.
-- Identity on the CV: Αντώνης Σκαρλάτος / Antonis Skarlatos, programmer, data analyst, and physicist, Athens 16232.
+- Identity on the CV: Αντώνης Σκαρλάτος / Antonis Skarlatos, developer, data analyst, and physicist, Athens 16232.
 - Email antwnis_skarlatos@yahoo.com, phone +30 6983696885, LinkedIn antonis-skarlatos-a41781212, GitHub skarla21.
 - Portrait: `public/imgs/pfp.jpg`, cropped to the face and shown as a circle beside the introduction.
 - Absent, and not to be invented: project screenshots, a named accounting client, and the name of the German bank. Recommender names, portraits, and their quotes are on the page.

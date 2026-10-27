@@ -153,17 +153,18 @@ useScrollScene(root, ({ gsap, mm }) => {
 </script>
 
 <template>
+  <!-- Hash target must sit outside the pinned section or in-page nav lands at the pin end. -->
+  <div id="work" class="h-0 w-full" aria-hidden="true" />
   <section
-    id="work"
     ref="root"
     class="bg-night text-paper md:motion-safe:h-dvh md:motion-safe:overflow-hidden"
   >
     <div
       ref="track"
-      class="flex flex-col md:motion-safe:h-dvh md:motion-safe:w-max md:motion-safe:flex-row"
+      class="project-track flex flex-col md:motion-safe:h-dvh md:motion-safe:w-max md:motion-safe:flex-row"
     >
       <article
-        class="project-panel flex flex-col justify-center px-6 py-20 md:px-10 lg:px-16"
+        class="project-panel flex flex-col items-center justify-center px-6 py-20 text-center md:px-10 lg:px-16"
       >
         <p class="text-xs uppercase tracking-[0.22em] text-night-soft">
           {{ copy.workKicker }}
@@ -227,6 +228,7 @@ useScrollScene(root, ({ gsap, mm }) => {
           />
         </div>
       </article>
+      <div class="project-trail" aria-hidden="true" />
     </div>
   </section>
 </template>
@@ -237,7 +239,7 @@ useScrollScene(root, ({ gsap, mm }) => {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 22rem;
+  max-width: calc(22rem * 1.33);
   min-width: 0;
   aspect-ratio: 4 / 5;
   padding: 1.25rem;
@@ -258,16 +260,32 @@ useScrollScene(root, ({ gsap, mm }) => {
 }
 
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .project-track {
+    --project-trail: min(30vw, 18rem);
+  }
+
+  .project-trail {
+    flex: 0 0 var(--project-trail);
+    width: var(--project-trail);
+    align-self: stretch;
+  }
+
   .project-stage {
     flex: 0 0 auto;
-    width: min(26rem, calc((100dvh - var(--nav-h) - 5rem) * 4 / 5));
-    max-width: 26rem;
+    width: min(
+      calc(26rem * 1.33),
+      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5 * 1.33)
+    );
+    max-width: calc(26rem * 1.33);
     max-height: 100%;
   }
 
   .project-panel {
     --project-copy: 22rem;
-    --project-media: min(26rem, calc((100dvh - var(--nav-h) - 5rem) * 4 / 5));
+    --project-media: min(
+      calc(26rem * 1.33),
+      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5 * 1.33)
+    );
     --project-pair-gap: 3rem;
     --project-span: calc(
       var(--project-copy) + var(--project-pair-gap) + var(--project-media)
@@ -293,7 +311,8 @@ useScrollScene(root, ({ gsap, mm }) => {
     max-width: none;
     flex-direction: column;
     justify-content: center;
-    align-items: stretch;
+    align-items: center;
+    text-align: center;
     padding-right: 4rem;
     padding-left: 4rem;
   }
@@ -306,8 +325,5 @@ useScrollScene(root, ({ gsap, mm }) => {
     margin-left: var(--project-span);
   }
 
-  .project-panel:last-child {
-    padding-right: 4rem;
-  }
 }
 </style>
