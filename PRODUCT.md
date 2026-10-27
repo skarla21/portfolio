@@ -22,7 +22,7 @@ One continuous page. The name is the opening. Studies and jobs share one timelin
 
 ## Operating Context
 
-One page. Greek is the default; English is a nav switch, stored in a `locale` cookie. Vertical scroll, with a single pinned stretch for the projects on a wide screen that accepts motion. Each language has its own CV PDF. Thesis titles stay on the timeline; the thesis paragraphs stay in the file. The master's thesis title links to Pergamos.
+One page. Greek is the default; English is a nav switch, stored in a `locale` cookie. Vertical scroll, with a single pinned stretch for the projects on a wide screen that accepts motion. Both languages open the same English CV. Thesis titles stay on the timeline; the thesis paragraphs stay in the file. The master's thesis title links to Pergamos.
 
 ## Capabilities and Constraints
 
@@ -43,7 +43,7 @@ Paper, mist, night, and ink, in that rhythm. Source Serif 4 for the large lines,
 
 ## Evidence on Hand
 
-- CV files: `public/cv/antonis-skarlatos-el.pdf` and `public/cv/antonis-skarlatos-en.pdf`. The nav and the contact link always open the English CV. The Greek file stays in the repo.
+- CV file: `public/cv/Skarlatos_CV.pdf`. The nav and the contact link open that English CV in both languages.
 - Identity on the CV: Αντώνης Σκαρλάτος / Antonis Skarlatos, developer, data analyst, and physicist, Athens 16232.
 - Email antwnis_skarlatos@yahoo.com, phone +30 6983696885, LinkedIn antonis-skarlatos-a41781212, GitHub skarla21.
 - Portrait: `public/imgs/pfp.jpg`, cropped to the face and shown as a circle beside the introduction.

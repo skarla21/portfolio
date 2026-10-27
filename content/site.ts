@@ -112,6 +112,7 @@ const contact = {
   phoneHref: "tel:+306983696885",
   linkedin: "https://www.linkedin.com/in/antonis-skarlatos-a41781212",
   github: "https://github.com/skarla21",
+  cv: "/cv/Skarlatos_CV.pdf",
 };
 
 export const siteUrl = "https://antonis-skarlatos.vercel.app";
@@ -438,7 +439,6 @@ export const copies: Record<Locale, Copy> = {
     emailLabel: "E-mail",
     phoneLabel: "Τηλέφωνο",
     cvLabel: "Βιογραφικό",
-    cv: "/cv/antonis-skarlatos-en.pdf",
     address: "Αθήνα, 16232",
     seoTitle: "Αντώνης Σκαρλάτος (Antonis Skarlatos)",
     seoDescription:
@@ -651,7 +651,6 @@ export const copies: Record<Locale, Copy> = {
     emailLabel: "E-mail",
     phoneLabel: "Phone",
     cvLabel: "CV",
-    cv: "/cv/antonis-skarlatos-en.pdf",
     address: "Athens, 16232",
     seoTitle: "Antonis Skarlatos (Αντώνης Σκαρλάτος)",
     seoDescription:
