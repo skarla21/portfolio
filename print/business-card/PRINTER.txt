@@ -1,0 +1,53 @@
+Αντώνης Σκαρλάτος — επαγγελματική κάρτα
+
+Στείλτε το αρχείο antonis-skarlatos-card.pdf.
+Μην τυπώσετε τα SVG.
+
+Σελίδα 1: μπροστά
+Σελίδα 2: πίσω, σωστή ανάγνωση (όχι καθρέφτης)
+
+Κοπή: 90 × 50 mm
+Bleed: 3 mm
+Σημεία κοπής: μέσα στο PDF
+Διπλή όψη: γύρισμα στη μεγάλη πλευρά
+
+Χαρτί: αφουάρωτο κρεμ ή ιβουάρ, κοντά στο #f3efe4, 350–400 gsm.
+Το κρεμ δεν είναι τυπωμένο χρώμα. Είναι το χρώμα του χαρτιού.
+Το PDF δεν έχει κρεμ φόντο.
+
+Μελάνι
+- Κείμενο και QR: 100% K
+- Λαχανί, μόνο η γραμμή πίσω από τη μία πρόταση: C 18, M 0, Y 60, K 0
+  Στόχος στην οθόνη: #d6f26a. Σε αφουάρωτο χαρτί το λαχανί θα κάτσει λίγο πιο σκούρο.
+
+Οι γραμματοσειρές είναι ενσωματωμένες στο PDF.
+Φινίρισμα: χωρίς γυαλιστερή πλαστικοποίηση. Θαμπώνει το λαχανί και γυαλίζει πάνω στο QR.
+Οι στρογγυλεμένες γωνίες είναι εντάξει. Το κείμενο είναι 5 mm μέσα από την κοπή.
+
+Ζητήστε ένα τυπωμένο δοκίμιο πριν από την παραγωγή.
+
+---
+
+Send antonis-skarlatos-card.pdf. Do not print the SVG files.
+
+Page 1: front
+Page 2: back, right-reading (not mirrored)
+
+Trim: 90 × 50 mm
+Bleed: 3 mm
+Crop marks are in the PDF
+Duplex: flip on the long edge
+
+Stock: uncoated cream or ivory, near #f3efe4, 350–400 gsm.
+The cream is the paper. The PDF does not print a cream background.
+
+Ink
+- Type and QR: 100% black (K)
+- Lime, the bar behind one sentence only: C 18, M 0, Y 60, K 0
+  Screen target #d6f26a. On uncoated stock it will sit a little deeper.
+
+Fonts are embedded in the PDF.
+No gloss laminate. It dulls the lime and glares on the QR.
+Rounded corners are fine. Type sits 5 mm inside the trim.
+
+Order one printed proof before the run.

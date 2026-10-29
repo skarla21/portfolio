@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="90mm" height="50mm" viewBox="0 0 90 50" role="img" xml:lang="el">
+  <title>Αντώνης Σκαρλάτος — μπροστά</title>
+  <style><![CDATA[
+    @font-face {
+      font-family: "Source Serif 4 Subhead";
+      src: url("fonts/SourceSerif4Subhead-Regular.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "Source Serif 4 Caption";
+      src: url("fonts/SourceSerif4Caption-Regular.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "Source Sans 3";
+      src: url("fonts/SourceSans3-Regular.ttf") format("truetype");
+      font-weight: 400;
+    }
+    text { fill: #14120e; }
+    ]]></style>
+  <!-- stock-preview is the cream paper. The print PDF does not ink this rectangle. -->
+  <rect id="stock-preview" width="90" height="50" fill="#f3efe4"/>
+  <rect x="5.499" y="30.040" width="78.412" height="3.060" fill="#d6f26a"/>
+  <text x="6.100" y="7.000" font-family="Source Sans 3" font-size="2.4694" letter-spacing="0.5433">ΑΘΗΝΑ</text>
+  <text x="6.100" y="15.065" font-family="Source Serif 4 Subhead" font-size="7.7611" letter-spacing="-0.2328">Αντώνης</text>
+  <text x="6.100" y="23.245" font-family="Source Serif 4 Subhead" font-size="7.7611" letter-spacing="-0.2328">Σκαρλάτος</text>
+  <text x="6.100" y="28.310" font-family="Source Sans 3" font-size="2.5576" letter-spacing="0.0512">Antonis Skarlatos</text>
+  <text x="6.100" y="32.319" font-family="Source Serif 4 Caption" font-size="2.7340">Φυσικός στην εκπαίδευση, προγραμματιστής στην πράξη.</text>
+  <text x="6.100" y="37.070" font-family="Source Sans 3" font-size="2.8222">Ιστοσελίδες</text>
+  <text x="46.000" y="37.070" font-family="Source Sans 3" font-size="2.8222">Ανάλυση δεδομένων</text>
+  <text x="6.100" y="40.540" font-family="Source Sans 3" font-size="2.8222">Εφαρμογές</text>
+  <text x="46.000" y="40.540" font-family="Source Sans 3" font-size="2.8222">SEO</text>
+  <text x="6.100" y="44.010" font-family="Source Sans 3" font-size="2.8222">E-shops</text>
+  <text x="46.000" y="44.010" font-family="Source Sans 3" font-size="2.8222">AEO</text>
+</svg>
