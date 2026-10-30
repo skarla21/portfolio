@@ -1,0 +1,8 @@
+---
+description: This project does not use automated tests
+alwaysApply: true
+---
+
+# No automated tests
+
+Do not add a test runner, test scripts, or test files to this project.

@@ -1,130 +1,118 @@
 <script setup lang="ts">
 import { desktopMotion, useScrollScene } from "~/composables/useScrollScene";
 import { useLocale } from "~/composables/useLocale";
+import {
+  ACTIVE_RATIO,
+  selectActiveProjectId,
+} from "~/utils/selectActiveProject";
 
 const { copy } = useLocale();
 const root = ref<HTMLElement | null>(null);
 const track = ref<HTMLElement | null>(null);
-const mediaReady = ref<Record<string, boolean>>({});
-const posterReady = ref<Record<string, boolean>>({});
-const frameShown = ref<Record<string, boolean>>({});
-const frames = new Map<string, HTMLVideoElement>();
-let frameObserver: IntersectionObserver | undefined;
+const activeId = ref<string | null>(null);
+const frameShown = ref(false);
+const failed = ref<Record<string, boolean>>({});
+const activeVideo = ref<HTMLVideoElement | null>(null);
+
+const stages = new Map<string, HTMLElement>();
+const stageRefs = new Map<string, (el: unknown) => void>();
+const ratios = new Map<string, number>();
+
+let stageObserver: IntersectionObserver | undefined;
 let reduceMotion = false;
 
-const frameRefs = new Map<string, (el: unknown) => void>();
-
-function frameRef(id: string) {
-  const existing = frameRefs.get(id);
+function stageRef(id: string) {
+  const existing = stageRefs.get(id);
   if (existing) return existing;
   const register = (el: unknown) => {
-    const node = el instanceof HTMLVideoElement ? el : null;
-    const current = frames.get(id) ?? null;
+    const node = el instanceof HTMLElement ? el : null;
+    const current = stages.get(id) ?? null;
     if (current === node) return;
-    if (node) frames.set(id, node);
-    else frames.delete(id);
-    observeFrames();
+    if (current) stageObserver?.unobserve(current);
+    if (node) {
+      stages.set(id, node);
+      stageObserver?.observe(node);
+    } else {
+      stages.delete(id);
+      ratios.delete(id);
+      pickActive();
+    }
   };
-  frameRefs.set(id, register);
+  stageRefs.set(id, register);
   return register;
 }
 
-function observeFrames() {
-  if (!frameObserver) return;
-  frameObserver.disconnect();
-  frames.forEach((video) => frameObserver?.observe(video));
+function pickActive() {
+  const next = reduceMotion
+    ? null
+    : selectActiveProjectId(ratios, failed.value);
+
+  if (next === activeId.value) return;
+  frameShown.value = false;
+  activeId.value = next;
 }
 
-function arm(video: HTMLVideoElement) {
-  const src = video.dataset.src;
-  if (!src || video.dataset.armed === "1") return;
-  video.dataset.armed = "1";
-  video.muted = true;
-  video.defaultMuted = true;
-  video.playsInline = true;
-  video.src = src;
+function bindStages() {
+  if (stageObserver) return;
+  stageObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const el = entry.target;
+        if (!(el instanceof HTMLElement)) continue;
+        const id = el.dataset.projectId;
+        if (!id) continue;
+        ratios.set(id, entry.intersectionRatio);
+      }
+      pickActive();
+    },
+    { threshold: [0, 0.25, ACTIVE_RATIO, 0.6, 0.75, 1] },
+  );
+  stages.forEach((stage) => stageObserver?.observe(stage));
+}
+
+function unloadVideo(video: HTMLVideoElement | null) {
+  if (!video) return;
+  video.pause();
+  video.removeAttribute("src");
   video.load();
 }
 
-function bindPlayback() {
-  if (frameObserver) return;
-  frameObserver = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        const video = entry.target;
-        if (!(video instanceof HTMLVideoElement)) continue;
-        if (entry.intersectionRatio >= 0.15) arm(video);
-        if (reduceMotion || entry.intersectionRatio < 0.6) {
-          video.pause();
-        } else {
-          void video.play().catch(() => {});
-        }
-      }
-    },
-    { threshold: [0, 0.15, 0.6] },
-  );
-  observeFrames();
+function setActiveVideo(el: unknown) {
+  const node = el instanceof HTMLVideoElement ? el : null;
+  const prev = activeVideo.value;
+  if (prev === node) return;
+  unloadVideo(prev);
+  activeVideo.value = node;
+  if (!node || reduceMotion) return;
+  node.muted = true;
+  node.defaultMuted = true;
+  node.playsInline = true;
 }
 
-async function fileExists(url: string) {
-  try {
-    const response = await fetch(url, { method: "HEAD", cache: "no-store" });
-    return response.ok;
-  } catch {
-    return false;
-  }
+function onFrameReady() {
+  frameShown.value = true;
+  const video = activeVideo.value;
+  if (!video || reduceMotion) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  void video.play().catch(() => {});
 }
 
-function posterLoads(url: string) {
-  return new Promise<boolean>((resolve) => {
-    const image = new Image();
-    image.onload = () => resolve(true);
-    image.onerror = () => resolve(false);
-    image.src = url;
-  });
-}
-
-function revealMedia() {
-  for (const project of copy.value.projects) {
-    if (mediaReady.value[project.id] || !project.video) continue;
-    const videoUrl = project.video;
-    const posterUrl = project.poster;
-    void (async () => {
-      const videoOk = await fileExists(videoUrl);
-      if (!videoOk) return;
-      if (posterUrl && (await posterLoads(posterUrl))) {
-        posterReady.value = { ...posterReady.value, [project.id]: true };
-      }
-      mediaReady.value = { ...mediaReady.value, [project.id]: true };
-      nextTick(observeFrames);
-    })();
-  }
-}
-
-function onFrameReady(id: string) {
-  frameShown.value = { ...frameShown.value, [id]: true };
-}
-
-function onFrameError(id: string, event: Event) {
-  const video = event.target;
-  if (!(video instanceof HTMLVideoElement) || video.dataset.armed !== "1")
-    return;
-  video.pause();
-  const next = { ...mediaReady.value };
-  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-  delete next[id];
-  mediaReady.value = next;
+function onFrameError(id: string) {
+  failed.value = { ...failed.value, [id]: true };
+  pickActive();
 }
 
 onMounted(() => {
   reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  revealMedia();
-  bindPlayback();
+  bindStages();
+  pickActive();
 });
 
 onUnmounted(() => {
-  frameObserver?.disconnect();
-  frames.forEach((video) => video.pause());
+  stageObserver?.disconnect();
+  unloadVideo(activeVideo.value);
+  activeVideo.value = null;
 });
 
 useScrollScene(root, ({ gsap, mm }) => {
@@ -207,24 +195,37 @@ useScrollScene(root, ({ gsap, mm }) => {
             {{ project.summary }}
           </p>
         </div>
-        <div class="project-stage" :style="{ backgroundColor: project.accent }">
-          <video
-            v-if="project.video && mediaReady[project.id]"
-            :ref="frameRef(project.id)"
+        <div
+          :ref="stageRef(project.id)"
+          class="project-stage"
+          :data-project-id="project.id"
+          :style="{ backgroundColor: project.accent }"
+        >
+          <img
+            v-if="project.poster"
             class="project-frame"
-            :class="{
-              'is-pending': !posterReady[project.id] && !frameShown[project.id],
-            }"
-            :poster="posterReady[project.id] ? project.poster : undefined"
-            :data-src="project.video"
+            :src="project.poster"
+            :alt="`${project.name} preview`"
+            loading="lazy"
+            decoding="async"
+            draggable="false"
+          />
+          <video
+            v-if="
+              project.video && activeId === project.id && !failed[project.id]
+            "
+            :ref="setActiveVideo"
+            class="project-frame project-video"
+            :class="{ 'is-pending': !frameShown }"
+            :src="project.video"
             muted
             loop
             playsinline
             preload="none"
             tabindex="-1"
             aria-hidden="true"
-            @loadeddata="onFrameReady(project.id)"
-            @error="onFrameError(project.id, $event)"
+            @loadeddata="onFrameReady"
+            @error="onFrameError(project.id)"
           />
         </div>
       </article>
@@ -235,6 +236,7 @@ useScrollScene(root, ({ gsap, mm }) => {
 
 <style scoped>
 .project-stage {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -255,7 +257,14 @@ useScrollScene(root, ({ gsap, mm }) => {
   background: transparent;
 }
 
-.project-frame.is-pending {
+.project-video {
+  position: absolute;
+  inset: 1.25rem;
+  width: calc(100% - 2.5rem);
+  height: calc(100% - 2.5rem);
+}
+
+.project-video.is-pending {
   opacity: 0;
 }
 
@@ -324,6 +333,5 @@ useScrollScene(root, ({ gsap, mm }) => {
   .project-panel:nth-child(n + 3) {
     margin-left: var(--project-span);
   }
-
 }
 </style>
