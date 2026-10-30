@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <title>Επαγγελματική κάρτα</title>
+  <style>
+    @font-face { font-family: "Manrope"; src: url("fonts/Manrope-Regular.ttf") format("truetype"); }
+    body { margin: 0; padding: 32px; background: #e6e1d4; color: #14120e; font: 15px/1.4 Manrope, sans-serif; }
+    h1 { font-size: 18px; font-weight: 500; margin: 0 0 8px; }
+    p { margin: 0 0 20px; }
+    .row { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+    figure { margin: 0; }
+    img { width: 90mm; height: 50mm; display: block; box-shadow: 0 10px 28px rgba(20, 18, 14, 0.12); }
+    figcaption { margin-top: 6px; font-size: 12px; letter-spacing: 0.04em; }
+  </style>
+</head>
+<body>
+  <h1>Εκτύπωση</h1>
+  <p>Και οι δύο όψεις μπαίνουν στο PDF.</p>
+  <div class="row">
+    <figure>
+      <img src="front.svg" alt="Μπροστινή όψη">
+      <figcaption>Μπροστά</figcaption>
+    </figure>
+    <figure>
+      <img src="back.svg" alt="Πίσω όψη">
+      <figcaption>Πίσω</figcaption>
+    </figure>
+  </div>
+</body>
+</html>

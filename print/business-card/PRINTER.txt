@@ -16,12 +16,11 @@ Bleed: 3 mm
 Το PDF δεν έχει κρεμ φόντο.
 
 Μελάνι
-- Κείμενο και QR: 100% K
-- Λαχανί, μόνο η γραμμή πίσω από τη μία πρόταση: C 18, M 0, Y 60, K 0
-  Στόχος στην οθόνη: #d6f26a. Σε αφουάρωτο χαρτί το λαχανί θα κάτσει λίγο πιο σκούρο.
+- Κείμενο, εικονίδια, QR: 100% K
+- Το κρεμ είναι το χαρτί· δεν τυπώνεται φόντο.
 
 Οι γραμματοσειρές είναι ενσωματωμένες στο PDF.
-Φινίρισμα: χωρίς γυαλιστερή πλαστικοποίηση. Θαμπώνει το λαχανί και γυαλίζει πάνω στο QR.
+Φινίρισμα: χωρίς γυαλιστερή πλαστικοποίηση. Γυαλίζει πάνω στο QR.
 Οι στρογγυλεμένες γωνίες είναι εντάξει. Το κείμενο είναι 5 mm μέσα από την κοπή.
 
 Ζητήστε ένα τυπωμένο δοκίμιο πριν από την παραγωγή.
@@ -42,12 +41,10 @@ Stock: uncoated cream or ivory, near #f3efe4, 350–400 gsm.
 The cream is the paper. The PDF does not print a cream background.
 
 Ink
-- Type and QR: 100% black (K)
-- Lime, the bar behind one sentence only: C 18, M 0, Y 60, K 0
-  Screen target #d6f26a. On uncoated stock it will sit a little deeper.
+- Type, icons, and QR: 100% black (K)
 
 Fonts are embedded in the PDF.
-No gloss laminate. It dulls the lime and glares on the QR.
+No gloss laminate. It glares on the QR.
 Rounded corners are fine. Type sits 5 mm inside the trim.
 
 Order one printed proof before the run.
