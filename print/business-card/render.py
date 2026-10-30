@@ -40,11 +40,12 @@ PAPER = CMYKColor(0, 0, 0, 0)
 TEXT_X = 6.1
 COLUMN = 58.0
 TEXT_RIGHT = COLUMN - 0.8
-SERIF = "GentiumBookPlus"
-SERIF_CSS = "Gentium Book Plus"
-SERIF_FILE = "GentiumBookPlus-Regular.ttf"
+# Hero name uses Tailwind `font-display` → Manrope.
 SANS = "Manrope"
+SERVICE = "Roboto"
 MONO = "JetBrainsMono"
+NAME_TRACK = -0.035  # matches hero tracking-[-0.035em]
+SERVICE_TRACK = 0.0
 
 NAME = "Αντώνης Σκαρλάτος"
 ROLE = "ΠΑΡΟΧΗ ΥΠΗΡΕΣΙΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ & ΛΟΓΙΣΜΙΚΟΥ"
@@ -205,8 +206,8 @@ def mm_pt(mm: float) -> float:
 
 
 def register_fonts() -> None:
-    pdfmetrics.registerFont(TTFont(SERIF, str(FONTS / SERIF_FILE)))
     pdfmetrics.registerFont(TTFont(SANS, str(FONTS / "Manrope-Regular.ttf")))
+    pdfmetrics.registerFont(TTFont(SERVICE, str(FONTS / "Roboto-Regular.ttf")))
     pdfmetrics.registerFont(TTFont(MONO, str(FONTS / "JetBrainsMono-Regular.ttf")))
 
 
@@ -291,15 +292,17 @@ def ink(kind: str, pt: float) -> tuple[float, float]:
     return above * pt, below * pt
 
 
-def front_layout(name_font: str = SERIF, name_css: str | None = SERIF_CSS) -> dict:
-    name_pt = shrink_pt(NAME, name_font, 16.0, 13.0, TEXT_X, step=0.25, tracking_em=-0.02, right=TEXT_RIGHT)
+def front_layout() -> dict:
+    name_pt = shrink_pt(NAME, SANS, 16.0, 13.0, TEXT_X, step=0.25, tracking_em=NAME_TRACK, right=TEXT_RIGHT)
     role_pt, role_track = fit_tracked(ROLE, SANS, 6.75, 5.75, 0.0, TEXT_X, TEXT_RIGHT, min_tracking=-0.02)
     service_x = TEXT_X + 2.55
-    service_pt = 8.0
-    longest = max(SERVICES, key=lambda line: text_width(line, SANS, service_pt))
-    service_pt = shrink_pt(longest, SANS, service_pt, 7.0, service_x, step=0.25, right=TEXT_RIGHT)
+    service_pt = 7.5
+    longest = max(SERVICES, key=lambda line: text_width(line, SERVICE, service_pt, SERVICE_TRACK))
+    service_pt = shrink_pt(
+        longest, SERVICE, service_pt, 6.75, service_x, step=0.25, tracking_em=SERVICE_TRACK, right=TEXT_RIGHT
+    )
 
-    name_above, name_below = ink("serif-name", name_pt)
+    name_above, name_below = ink("sans-service", name_pt)
     role_above, role_below = ink("sans-role", role_pt)
     service_above, service_below = ink("sans-service", service_pt)
 
@@ -338,8 +341,6 @@ def front_layout(name_font: str = SERIF, name_css: str | None = SERIF_CSS) -> di
     mark_cx = min(COLUMN + mark_span / 2 + 2.2, mark_right - mark_d / 2)
     mark_cy = TRIM_H / 2
     return {
-        "name_font": name_font,
-        "name_css": name_css or name_font,
         "name_pt": name_pt,
         "name_baseline": name_baseline,
         "role_pt": role_pt,
@@ -347,6 +348,7 @@ def front_layout(name_font: str = SERIF, name_css: str | None = SERIF_CSS) -> di
         "role_baseline": role_baseline,
         "rule_y": rule_y,
         "service_pt": service_pt,
+        "service_track": SERVICE_TRACK,
         "service_x": service_x,
         "service_baselines": tuple(service_1 + i * service_step for i in range(4)),
         "service_above": service_above,
@@ -437,23 +439,23 @@ def contact_layout() -> dict:
 
 
 def svg_font_css() -> str:
-    return f"""
-    @font-face {{
-      font-family: "{SERIF_CSS}";
-      src: url("fonts/{SERIF_FILE}") format("truetype");
-      font-weight: 400;
-    }}
-    @font-face {{
+    return """
+    @font-face {
       font-family: "Manrope";
       src: url("fonts/Manrope-Regular.ttf") format("truetype");
       font-weight: 400;
-    }}
-    @font-face {{
+    }
+    @font-face {
+      font-family: "Roboto";
+      src: url("fonts/Roboto-Regular.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
       font-family: "JetBrains Mono";
       src: url("fonts/JetBrainsMono-Regular.ttf") format("truetype");
       font-weight: 400;
-    }}
-    text {{ fill: #14120e; }}
+    }
+    text { fill: #14120e; }
     """
 
 
@@ -629,14 +631,7 @@ def write_qr_svg(matrix: list[list[int]]) -> None:
 
 def front_body(layout: dict) -> str:
     parts = [
-        svg_text(
-            NAME,
-            layout.get("name_css", SERIF_CSS),
-            layout["name_pt"],
-            TEXT_X,
-            layout["name_baseline"],
-            -0.02,
-        ),
+        svg_text(NAME, "Manrope", layout["name_pt"], TEXT_X, layout["name_baseline"], NAME_TRACK),
         svg_text(ROLE, "Manrope", layout["role_pt"], TEXT_X, layout["role_baseline"], layout["role_track"]),
         svg_rule(TEXT_X, COLUMN, layout["rule_y"], FRONT_RULE),
         svg_mark(layout),
@@ -644,7 +639,16 @@ def front_body(layout: dict) -> str:
     for line, baseline in zip(SERVICES, layout["service_baselines"]):
         cy = baseline - pt_mm(layout["service_pt"]) * 0.36
         parts.append(svg_pointer(TEXT_X + 0.70, cy))
-        parts.append(svg_text(line, "Manrope", layout["service_pt"], layout["service_x"], baseline))
+        parts.append(
+            svg_text(
+                line,
+                "Roboto",
+                layout["service_pt"],
+                layout["service_x"],
+                baseline,
+                layout["service_track"],
+            )
+        )
     return "\n  ".join(parts)
 
 
@@ -892,15 +896,14 @@ def write_pdf(front: dict, back: dict, matrix: list[list[int]]) -> None:
     c.setSubject("Trim 90 x 50 mm. Bleed 3 mm. Page 1 front, page 2 back, flip on the long edge.")
 
     trim_boxes(c)
-    name_font = front.get("name_font", SERIF)
-    draw_text(c, NAME, name_font, front["name_pt"], TEXT_X, front["name_baseline"], -0.02)
+    draw_text(c, NAME, SANS, front["name_pt"], TEXT_X, front["name_baseline"], NAME_TRACK)
     draw_text(c, ROLE, SANS, front["role_pt"], TEXT_X, front["role_baseline"], front["role_track"])
     draw_rule(c, TEXT_X, COLUMN, front["rule_y"], FRONT_RULE)
     draw_mark(c, front)
     for line, baseline in zip(SERVICES, front["service_baselines"]):
         cy = baseline - pt_mm(front["service_pt"]) * 0.36
         draw_pointer(c, TEXT_X + 0.70, cy)
-        draw_text(c, line, SANS, front["service_pt"], front["service_x"], baseline)
+        draw_text(c, line, SERVICE, front["service_pt"], front["service_x"], baseline, front["service_track"])
     draw_crop_marks(c, media_w, media_h)
     draw_slug(c, media_w, "FRONT  ·  90 × 50 mm trim  ·  3 mm bleed")
     c.showPage()
@@ -942,13 +945,12 @@ def check_safe(front: dict, back: dict) -> None:
         if x < SAFE - 0.05 or y < SAFE - 0.05 or x + w > TRIM_W - SAFE + 0.05 or y + h > TRIM_H - SAFE + 0.05:
             problems.append(f"{name}: x={x:.2f} y={y:.2f} r={x + w:.2f} b={y + h:.2f}")
 
-    name_font = front.get("name_font", SERIF)
     box(
         "name",
         TEXT_X,
         front["name_baseline"],
-        text_width(NAME, name_font, front["name_pt"], -0.02),
-        "serif-name",
+        text_width(NAME, SANS, front["name_pt"], NAME_TRACK),
+        "sans-service",
         front["name_pt"],
         TEXT_RIGHT,
     )
@@ -975,7 +977,15 @@ def check_safe(front: dict, back: dict) -> None:
             POINTER_W,
             POINTER_H,
         )
-        box(f"s{index}", front["service_x"], baseline, text_width(line, SANS, front["service_pt"]), "sans-service", front["service_pt"], TEXT_RIGHT)
+        box(
+            f"s{index}",
+            front["service_x"],
+            baseline,
+            text_width(line, SERVICE, front["service_pt"], front["service_track"]),
+            "sans-service",
+            front["service_pt"],
+            TEXT_RIGHT,
+        )
 
     for row in back["rows"]:
         rect(row["icon"], TEXT_X, row["icon_top"], ICON, ICON)
@@ -1113,9 +1123,15 @@ def main() -> None:
     write_preview()
     for stale in ROOT.glob("front-name-*.svg"):
         stale.unlink()
-    print("name", front["name_pt"], front.get("name_css", SERIF_CSS), "baseline", round(front["name_baseline"], 2))
+    print("name", front["name_pt"], "Manrope", "baseline", round(front["name_baseline"], 2))
     print("role", front["role_pt"], "track", front["role_track"], "rule", round(front["rule_y"], 2))
-    print("services", front["service_pt"], tuple(round(v, 2) for v in front["service_baselines"]))
+    print(
+        "services",
+        front["service_pt"],
+        "track",
+        front["service_track"],
+        tuple(round(v, 2) for v in front["service_baselines"]),
+    )
     print("mark", round(front["mark_d"], 2), "at", round(front["mark_cx"], 2), round(front["mark_cy"], 2))
     print("value", back["value_pt"], "rows", tuple(round(row["baseline"], 2) for row in back["rows"]))
     print("back rule", round(back["rule_y"], 2), "to", round(back["rule_right"], 2), "footer", round(back["footer_baseline"], 2))

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/manrope':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@fontsource/source-sans-3':
         specifier: ^5.3.1
         version: 5.3.1
@@ -472,6 +475,9 @@ packages:
   '@eslint/plugin-kit@0.7.3':
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
+  '@fontsource/manrope@5.3.0':
+    resolution: {integrity: sha512-obJ1Dv3+uCA6HlHgW8u4BGYxJR9In2HW7gjJhlflEvkrj1X1iSEwu0fToL+JYGC/FEKFfIz1sBuPduvcL2gIAA==}
 
   '@fontsource/source-sans-3@5.3.1':
     resolution: {integrity: sha512-O3YxvbotUOgYI2Zx0bBcEMNjnwitRf9P2+9pd54sMoux1NHrdXnMwZusw2P78lFhEzOPN4glOEQmX0ASaS68uA==}
@@ -5122,6 +5128,8 @@ snapshots:
     dependencies:
       '@eslint/core': 1.2.1
       levn: 0.4.1
+
+  '@fontsource/manrope@5.3.0': {}
 
   '@fontsource/source-sans-3@5.3.1': {}
 

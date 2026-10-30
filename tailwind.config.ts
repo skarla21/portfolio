@@ -22,6 +22,7 @@ export default {
       fontFamily: {
         sans: ['"Source Sans 3"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         serif: ['"Source Serif 4"', 'Georgia', 'serif'],
+        display: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },

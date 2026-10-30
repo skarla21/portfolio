@@ -38,6 +38,7 @@ export type Project = {
 export type HobbyMedia = {
   type: "image" | "video";
   src: string;
+  poster?: string;
   scale?: number;
 };
 
@@ -208,8 +209,13 @@ const hobbyAssets: Record<
   football: {
     still: "/hobbies/football/football.jpg",
     media: [
-      { type: "image", src: "/hobbies/football/football.jpg" },
-      { type: "video", src: "/hobbies/football/penalty.mp4" },
+      { type: "image", src: "/hobbies/football/football.jpg", scale: 0.67 },
+      {
+        type: "video",
+        src: "/hobbies/football/penalty.mp4",
+        poster: "/hobbies/football/penalty.webp",
+        scale: 0.67,
+      },
     ],
   },
   travelling: {
@@ -222,11 +228,23 @@ const hobbyAssets: Record<
     ],
   },
   chess: {
-    media: [{ type: "video", src: "/hobbies/chess/chess.mp4" }],
+    media: [
+      {
+        type: "video",
+        src: "/hobbies/chess/chess.mp4",
+        poster: "/hobbies/chess/chess.webp",
+        scale: 0.67,
+      },
+    ],
   },
   climbing: {
     media: [
-      { type: "video", src: "/hobbies/climbing/climbing.mp4", scale: 0.67 },
+      {
+        type: "video",
+        src: "/hobbies/climbing/climbing.mp4",
+        poster: "/hobbies/climbing/climbing.webp",
+        scale: 0.67,
+      },
     ],
   },
 };
@@ -256,11 +274,10 @@ export const copies: Record<Locale, Copy> = {
     skip: "Μετάβαση στο περιεχόμενο",
     introLabel: "Εισαγωγή",
     profile: [
+      "5 χρόνια εμπειρίας σε ερευνητικά και εταιρικά περιβάλλοντα ως προγραμματιστής και αναλυτής δεδομένων. Εξειδίκευση στο Web Development.",
       "Απόφοιτος Φυσικής με μεταπτυχιακό στην Επιστήμη των Υπολογιστών και ενδιαφέρον για τον προγραμματισμό, την επιστήμη των δεδομένων και την ανάπτυξη ιστοσελίδων.",
       "Επιλυτής προβλημάτων με προσοχή στη λεπτομέρεια, αναλυτική σκέψη και έμφαση στη μαθηματική προσέγγιση.",
       "Ευέλικτος και προσαρμόσιμος σε νέους ρόλους και δεξιότητες.",
-      "Εργασία σε ερευνητικούς και βιομηχανικούς τομείς ως αναλυτής δεδομένων και προγραμματιστής για 3 χρόνια.",
-      "Τώρα εργάζομαι σαν Web Developer.",
     ],
     journeyTitle: "Η πορεία",
     journeyLede: "Από τη φυσική στον προγραμματισμό.",
@@ -349,27 +366,16 @@ export const copies: Record<Locale, Copy> = {
     workKicker: "03 — Επιλεγμένα έργα",
     workTitle: "Freelance projects.",
     workIntro:
-      "Ιστοσελίδες και εφαρμογές που έφτιαξα μόνος ή ως μέλος μιας μικρής ομάδας.",
+      "Ιστοσελίδες και εφαρμογές που ανέπτυξα μόνος ή ως μέλος μιας μικρής ομάδας.",
     projects: [
       {
-        id: "mathe",
-        name: "Μάθε Παιδί μου Αρχαία",
+        id: "orderoo",
+        name: "Orderoo",
         dates: "",
-        stack: "Vue, Nuxt",
-        summary:
-          "Σύγχρονη εκπαιδευτική πλατφόρμα, ανεπτυγμένη με Vue και Nuxt.",
-        href: "https://mathearchaia.gr",
-        accent: accents.mathe,
-      },
-      {
-        id: "figata",
-        name: "Figata Café",
-        dates: "",
-        stack: "Next.js",
-        summary:
-          "Μια κομψή, mobile-friendly ιστοσελίδα για το Figata καφέ, ένα τοπικό μαγαζί, με έμφαση στην ατμόσφαιρα και τα προϊόντα του.",
-        href: "https://www.figata.gr/",
-        accent: accents.figata,
+        stack: "React, Next.js",
+        summary: "Μέλος της ομάδας ανάπτυξης, σε περιβάλλον start-up.",
+        href: "https://orderoo.gr/el",
+        accent: accents.orderoo,
       },
       {
         id: "accountant",
@@ -382,13 +388,24 @@ export const copies: Record<Locale, Copy> = {
         accent: accents.accountant,
       },
       {
-        id: "orderoo",
-        name: "Orderoo",
+        id: "figata",
+        name: "Figata Café",
         dates: "",
-        stack: "React, Next.js",
-        summary: "Μέλος της ομάδας ανάπτυξης, σε περιβάλλον start-up.",
-        href: "https://orderoo.gr/el",
-        accent: accents.orderoo,
+        stack: "Next.js",
+        summary:
+          "Μια κομψή, mobile-friendly ιστοσελίδα για το Figata καφέ, με έμφαση στην ατμόσφαιρα και τα προϊόντα του.",
+        href: "https://www.figata.gr/",
+        accent: accents.figata,
+      },
+      {
+        id: "mathe",
+        name: "Μάθε Παιδί μου Αρχαία",
+        dates: "",
+        stack: "Vue, Nuxt",
+        summary:
+          "Σύγχρονη εκπαιδευτική πλατφόρμα, ανεπτυγμένη με Vue και Nuxt.",
+        href: "https://mathearchaia.gr",
+        accent: accents.mathe,
       },
     ],
     recommendationsKicker: "04",
@@ -465,11 +482,10 @@ export const copies: Record<Locale, Copy> = {
     skip: "Skip to content",
     introLabel: "Introduction",
     profile: [
+      "5 years of experience in research and corporate environments as a programmer and data analyst. Specialized in Web Development.",
       "A Physics graduate with a MSc in Computer Science and an interest in programming, data science and web development.",
       "Problem-solver with attention to detail, analytical thinking and an emphasis on mathematical approach.",
       "Flexible and adaptable to new roles and skills.",
-      "Worked in research and industry fields as a data analyst and software engineer for 3 years.",
-      "Currently working as a Web Developer!",
     ],
     journeyTitle: "The journey",
     journeyLede: "From physics to programming.",
@@ -565,23 +581,13 @@ export const copies: Record<Locale, Copy> = {
       "Sites and applications built alone, or as part of a small team.",
     projects: [
       {
-        id: "mathe",
-        name: "Mathe Paidi Mou Archaia",
+        id: "orderoo",
+        name: "Orderoo",
         dates: "",
-        stack: "Vue, Nuxt",
-        summary: "A modern educational platform, built with Vue and Nuxt.",
-        href: "https://mathearchaia.gr",
-        accent: accents.mathe,
-      },
-      {
-        id: "figata",
-        name: "Figata Café",
-        dates: "",
-        stack: "Next.js",
-        summary:
-          "A modern, responsive website for Figata Café, a local café showcasing its atmosphere, products, and unique charm. Built with Next.js.",
-        href: "https://www.figata.gr/",
-        accent: accents.figata,
+        stack: "React, Next.js",
+        summary: "Member of the development team, in a start-up environment.",
+        href: "https://orderoo.gr/el",
+        accent: accents.orderoo,
       },
       {
         id: "accountant",
@@ -594,13 +600,23 @@ export const copies: Record<Locale, Copy> = {
         accent: accents.accountant,
       },
       {
-        id: "orderoo",
-        name: "Orderoo",
+        id: "figata",
+        name: "Figata Café",
         dates: "",
-        stack: "React, Next.js",
-        summary: "Member of the development team, in a start-up environment.",
-        href: "https://orderoo.gr/el",
-        accent: accents.orderoo,
+        stack: "Next.js",
+        summary:
+          "A modern, responsive website for Figata Café, a local café showcasing its atmosphere, products, and unique charm. Built with Next.js.",
+        href: "https://www.figata.gr/",
+        accent: accents.figata,
+      },
+      {
+        id: "mathe",
+        name: "Mathe Paidi Mou Archaia",
+        dates: "",
+        stack: "Vue, Nuxt",
+        summary: "A modern educational platform, built with Vue and Nuxt.",
+        href: "https://mathearchaia.gr",
+        accent: accents.mathe,
       },
     ],
     recommendationsKicker: "04",

@@ -46,13 +46,13 @@ useScrollScene(root, ({ gsap, mm }) => {
     </div>
 
     <div>
-      <h1 class="js-parallax font-serif text-[clamp(2.75rem,12.5vw,10.5rem)] leading-[0.88] tracking-[-0.035em]">
+      <h1 class="js-parallax font-display text-[clamp(1.8rem,8vw,6.8rem)] leading-[0.88] tracking-[-0.035em]">
         <span class="js-rise block">{{ copy.nameLines[0] }}</span>
         <span class="js-rise block">{{ copy.nameLines[1] }}</span>
       </h1>
-      <div class="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-        <p class="lede max-w-xl font-serif text-[clamp(1.7rem,3vw,2.45rem)]">
-          <span class="lede-mark">{{ copy.lede }}</span>
+      <div class="mt-14 flex flex-col gap-8 md:mt-16 md:flex-row md:items-end md:justify-between">
+        <p class="lede whitespace-nowrap font-display text-[clamp(1.05rem,1.45vw,1.3rem)] tracking-wide text-mute">
+          {{ copy.lede }}
         </p>
         <p class="text-sm uppercase tracking-[0.18em]">{{ copy.disciplines }}</p>
       </div>
@@ -72,14 +72,7 @@ useScrollScene(root, ({ gsap, mm }) => {
 
 <style scoped>
 .lede {
-  line-height: 1.45;
-}
-
-.lede-mark {
-  background: #d6f26a;
-  padding: 0.02em 0.22em 0.08em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  line-height: 1.35;
 }
 
 .scroll-cue {

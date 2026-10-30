@@ -10,7 +10,9 @@
 @import '@fontsource/source-sans-3/latin-ext-500.css';
 @import '@fontsource/source-sans-3/greek-400.css';
 @import '@fontsource/source-sans-3/greek-500.css';
-
+@import '@fontsource/manrope/latin-400.css';
+@import '@fontsource/manrope/latin-ext-400.css';
+@import '@fontsource/manrope/greek-400.css';
 :root {
   --nav-h: 5.75rem;
   --paper: #f3efe4;

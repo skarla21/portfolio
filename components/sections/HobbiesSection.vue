@@ -5,7 +5,8 @@ import type { Hobby, HobbyMedia } from "~/content/site";
 
 const chaseQuery =
   "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
-const drift = [12, 6, -8, 10, -6, 8];
+/* Scroll Y drift, scaled ~0.7 with the tighter vertical scatter. */
+const drift = [6, 3, -4, 4, -3, 4];
 const maxSkew = 6;
 const skewDecay = 0.82;
 const skewGain = 0.18;
@@ -49,14 +50,22 @@ function hasMedia(hobby: Hobby) {
   return hobby.media.length > 0;
 }
 
+let mediaPrefetched = false;
+
 function preloadImages() {
+  if (mediaPrefetched) return;
+  mediaPrefetched = true;
   const seen = new Set<string>();
   for (const hobby of copy.value.hobbies) {
     const sources = [
       hobby.still,
-      ...hobby.media
-        .filter((item) => item.type === "image")
-        .map((item) => item.src),
+      ...hobby.media.flatMap((item) =>
+        item.type === "image"
+          ? [item.src]
+          : item.poster
+            ? [item.poster]
+            : [],
+      ),
     ].filter((src): src is string => Boolean(src));
     for (const src of sources) {
       if (seen.has(src)) continue;
@@ -153,6 +162,22 @@ function ensureLoop() {
   if (!raf) raf = requestAnimationFrame(frame);
 }
 
+function showPoster(src: string, scale: number | undefined, token: number) {
+  const image = followImg.value;
+  const video = followVideo.value;
+  if (!image || !video) return;
+  video.pause();
+  video.hidden = true;
+  image.hidden = false;
+  const ready = () => {
+    if (token !== playToken) return;
+    sizeCard(image.naturalWidth, image.naturalHeight, scale);
+  };
+  image.onload = ready;
+  if (image.getAttribute("src") !== src) image.src = src;
+  if (image.complete && image.naturalWidth) ready();
+}
+
 function showMedia(item: HobbyMedia) {
   const image = followImg.value;
   const video = followVideo.value;
@@ -161,26 +186,24 @@ function showMedia(item: HobbyMedia) {
   const token = playToken;
 
   if (item.type === "image") {
-    video.pause();
-    video.hidden = true;
-    image.hidden = false;
-    const ready = () => {
-      if (token !== playToken) return;
-      sizeCard(image.naturalWidth, image.naturalHeight, item.scale);
-    };
-    image.onload = ready;
-    if (image.getAttribute("src") !== item.src) image.src = item.src;
-    if (image.complete && image.naturalWidth) ready();
+    showPoster(item.src, item.scale, token);
     return;
   }
 
-  image.hidden = true;
-  video.hidden = false;
   video.muted = true;
   video.pause();
+
+  if (item.poster) showPoster(item.poster, item.scale, token);
+  else {
+    image.hidden = true;
+    video.hidden = false;
+  }
+
   const start = () => {
     if (token !== playToken) return;
     sizeCard(video.videoWidth, video.videoHeight, item.scale);
+    image.hidden = true;
+    video.hidden = false;
     const play = () => {
       if (token !== playToken) return;
       void video.play().catch(() => {});
@@ -196,9 +219,9 @@ function showMedia(item: HobbyMedia) {
     videoSrc = item.src;
     video.src = item.src;
   }
-  if (video.readyState >= 1 && video.videoWidth) start();
+  if (video.readyState >= 2 && video.videoWidth) start();
   else {
-    video.addEventListener("loadedmetadata", start, { once: true });
+    video.addEventListener("loadeddata", start, { once: true });
     video.load();
   }
 }
@@ -320,10 +343,7 @@ function leave(hobby: Hobby, event: PointerEvent) {
 }
 
 onMounted(async () => {
-  preloadImages();
   if (followVideo.value) followVideo.value.muted = true;
-  const { gsap } = await import("gsap");
-  gsapApi = gsap;
 
   const media = window.matchMedia(chaseQuery);
   const apply = () => {
@@ -341,14 +361,38 @@ onMounted(async () => {
   };
   apply();
   media.addEventListener("change", apply);
-  onUnmounted(() => media.removeEventListener("change", apply));
+
+  let prefetchObserver: IntersectionObserver | null = null;
+  if (root.value) {
+    prefetchObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        preloadImages();
+        prefetchObserver?.disconnect();
+        prefetchObserver = null;
+      },
+      { rootMargin: "300px 0px" },
+    );
+    prefetchObserver.observe(root.value);
+  }
+
+  onUnmounted(() => {
+    media.removeEventListener("change", apply);
+    prefetchObserver?.disconnect();
+  });
+
+  const { gsap } = await import("gsap");
+  gsapApi = gsap;
 });
 
 watch(
   () => copy.value.hobbies,
   () => {
     if (!import.meta.client) return;
-    preloadImages();
+    if (mediaPrefetched) {
+      mediaPrefetched = false;
+      preloadImages();
+    }
     hideNow(true);
   },
 );
@@ -552,8 +596,8 @@ useScrollScene(root, ({ gsap, mm }) => {
 @media (min-width: 768px) {
   .hobby-field {
     position: relative;
-    width: min(86%, 68rem);
-    min-height: 34rem;
+    width: min(78%, 58rem);
+    min-height: 28rem;
     margin-inline: auto;
   }
 
@@ -561,34 +605,35 @@ useScrollScene(root, ({ gsap, mm }) => {
     position: absolute;
   }
 
+  /* Scatter: same constellation, X ×1.25 / Y ×0.7 around the cloud center. */
   .hobby-0 {
-    left: 18%;
-    top: 6%;
+    left: 19%;
+    top: 18%;
     font-size: clamp(2.15rem, 3vw, 2.75rem);
   }
   .hobby-1 {
-    left: 68%;
-    top: 14%;
+    left: 64%;
+    top: 23%;
     font-size: clamp(1.55rem, 2vw, 1.9rem);
   }
   .hobby-2 {
-    left: 3%;
-    top: 34%;
+    left: 6%;
+    top: 37%;
     font-size: clamp(1.75rem, 2.35vw, 2.15rem);
   }
   .hobby-3 {
-    left: 34%;
-    top: 48%;
+    left: 61%;
+    top: 44%;
     font-size: clamp(2rem, 2.7vw, 2.5rem);
   }
   .hobby-4 {
-    left: 66%;
-    top: 58%;
+    left: 60%;
+    top: 49%;
     font-size: clamp(1.9rem, 2.5vw, 2.35rem);
   }
   .hobby-5 {
-    left: 12%;
-    top: 76%;
+    left: 14%;
+    top: 58%;
     font-size: clamp(1.6rem, 2.1vw, 2rem);
   }
 }
@@ -604,34 +649,34 @@ useScrollScene(root, ({ gsap, mm }) => {
 
   .hobby-field {
     flex: 1;
-    width: min(82%, 72rem);
+    width: min(70%, 56rem);
     min-height: 0;
     margin-top: 0.25rem;
   }
 
   .hobby-0 {
-    left: 16%;
-    top: 14%;
+    left: 18%;
+    top: 25%;
   }
   .hobby-1 {
-    left: 68%;
-    top: 9%;
+    left: 61%;
+    top: 23%;
   }
   .hobby-2 {
-    left: 27%;
-    top: 48%;
+    left: 26%;
+    top: 41%;
   }
   .hobby-3 {
-    left: 46%;
-    top: 27%;
+    left: 68%;
+    top: 36%;
   }
   .hobby-4 {
-    left: 5%;
-    top: 71%;
+    left: 8%;
+    top: 54%;
   }
   .hobby-5 {
-    left: 57%;
-    top: 79%;
+    left: 53%;
+    top: 57%;
   }
 }
 </style>

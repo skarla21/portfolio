@@ -108,7 +108,7 @@ useScrollScene(root, ({ gsap, mm }) => {
       </ul>
     </div>
 
-    <p class="text-sm text-night-soft">{{ copy.name }} · {{ copy.address }}</p>
+    <p class="text-center text-sm text-night-soft">{{ copy.name }} · {{ copy.address }}</p>
   </section>
 </template>
 

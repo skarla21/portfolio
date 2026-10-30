@@ -1,4 +1,4 @@
-export const ACTIVE_RATIO = 0.45;
+export const ACTIVE_RATIO = 0.25;
 
 export function selectActiveProjectId(
   ratios: Map<string, number>,

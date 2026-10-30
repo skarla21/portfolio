@@ -87,6 +87,9 @@ function setActiveVideo(el: unknown) {
   node.muted = true;
   node.defaultMuted = true;
   node.playsInline = true;
+  // preload="none" never fetches until play/load — kick off playback here
+  // so loadeddata can fire and reveal the frame over the poster.
+  void node.play().catch(() => {});
 }
 
 function onFrameReady() {
@@ -221,7 +224,7 @@ useScrollScene(root, ({ gsap, mm }) => {
             muted
             loop
             playsinline
-            preload="none"
+            preload="auto"
             tabindex="-1"
             aria-hidden="true"
             @loadeddata="onFrameReady"
@@ -252,7 +255,7 @@ useScrollScene(root, ({ gsap, mm }) => {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   pointer-events: none;
   background: transparent;
 }
@@ -281,19 +284,21 @@ useScrollScene(root, ({ gsap, mm }) => {
 
   .project-stage {
     flex: 0 0 auto;
+    /* Width must stay height×(4/5). The old `* 1.33` made the box too wide once
+       max-height clamped, so object-fit cropped the 720×900 recordings. */
     width: min(
       calc(26rem * 1.33),
-      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5 * 1.33)
+      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5)
     );
     max-width: calc(26rem * 1.33);
-    max-height: 100%;
+    max-height: calc(100dvh - var(--nav-h) - 5rem);
   }
 
   .project-panel {
     --project-copy: 22rem;
     --project-media: min(
       calc(26rem * 1.33),
-      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5 * 1.33)
+      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5)
     );
     --project-pair-gap: 3rem;
     --project-span: calc(
