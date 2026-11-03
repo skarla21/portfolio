@@ -155,17 +155,17 @@ useScrollScene(root, ({ gsap, mm }) => {
       class="project-track flex flex-col md:motion-safe:h-dvh md:motion-safe:w-max md:motion-safe:flex-row"
     >
       <article
-        class="project-panel flex flex-col items-center justify-center px-6 py-20 text-center md:px-10 lg:px-16"
+        class="project-panel flex min-h-dvh flex-col items-center justify-center px-6 py-28 text-center md:px-10 lg:px-16"
       >
         <p class="text-xs uppercase tracking-[0.22em] text-night-soft">
           {{ copy.workKicker }}
         </p>
         <h2
-          class="mt-6 max-w-4xl font-serif text-[clamp(3rem,6.5vw,6.25rem)] leading-[0.92] tracking-tight"
+          class="project-title mt-10 max-w-4xl font-serif leading-[0.92] tracking-tight"
         >
           {{ copy.workTitle }}
         </h2>
-        <p class="mt-6 max-w-md text-lg leading-relaxed">
+        <p class="project-body mt-8 max-w-md text-lg leading-relaxed">
           {{ copy.workIntro }}
         </p>
       </article>
@@ -181,7 +181,7 @@ useScrollScene(root, ({ gsap, mm }) => {
             }}<span v-if="project.dates"> / {{ project.dates }}</span>
           </p>
           <h3
-            class="mt-6 font-serif text-[clamp(2.5rem,4.6vw,4.6rem)] leading-[0.92] tracking-tight"
+            class="project-name mt-6 font-serif leading-[0.92] tracking-tight"
           >
             <a
               v-if="project.href"
@@ -194,7 +194,7 @@ useScrollScene(root, ({ gsap, mm }) => {
             </a>
             <template v-else>{{ project.name }}</template>
           </h3>
-          <p class="mt-6 max-w-md text-lg leading-relaxed">
+          <p class="project-body mt-6 max-w-md text-lg leading-relaxed">
             {{ project.summary }}
           </p>
         </div>
@@ -238,6 +238,14 @@ useScrollScene(root, ({ gsap, mm }) => {
 </template>
 
 <style scoped>
+.project-title {
+  font-size: clamp(3rem, 6.5vw, 6.25rem);
+}
+
+.project-name {
+  font-size: clamp(2.5rem, 4.6vw, 4.6rem);
+}
+
 .project-stage {
   position: relative;
   display: flex;
@@ -337,6 +345,43 @@ useScrollScene(root, ({ gsap, mm }) => {
 
   .project-panel:nth-child(n + 3) {
     margin-left: var(--project-span);
+  }
+}
+
+/* ~20% larger type + recording frame on very large displays */
+@media (min-width: 85.625rem) {
+  .project-title {
+    font-size: calc(6.25rem * 1.2);
+  }
+
+  .project-name {
+    font-size: calc(4.6rem * 1.2);
+  }
+
+  .project-body {
+    font-size: calc(1.125rem * 1.2);
+  }
+
+  .project-stage {
+    max-width: calc(22rem * 1.33 * 1.2);
+  }
+}
+
+@media (min-width: 85.625rem) and (prefers-reduced-motion: no-preference) {
+  .project-stage {
+    width: min(
+      calc(26rem * 1.33 * 1.2),
+      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5)
+    );
+    max-width: calc(26rem * 1.33 * 1.2);
+  }
+
+  .project-panel {
+    --project-copy: calc(22rem * 1.2);
+    --project-media: min(
+      calc(26rem * 1.33 * 1.2),
+      calc((100dvh - var(--nav-h) - 5rem) * 4 / 5)
+    );
   }
 }
 </style>

@@ -33,7 +33,7 @@ function toggleLocale() {
         </a>
       </div>
       <nav
-        class="col-span-2 flex gap-x-4 overflow-x-auto text-sm md:col-auto md:ml-auto"
+        class="col-span-2 flex gap-x-3 overflow-x-auto text-[0.8125rem] leading-snug md:col-auto md:ml-auto md:gap-x-4 md:text-sm"
         :aria-label="locale === 'el' ? 'Ενότητες' : 'Sections'"
       >
         <a

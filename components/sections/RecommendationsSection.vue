@@ -2,8 +2,12 @@
 import { desktopMotion, useScrollScene } from '~/composables/useScrollScene'
 import { useLocale } from '~/composables/useLocale'
 
-const { copy } = useLocale()
+const { copy, locale } = useLocale()
 const root = ref<HTMLElement | null>(null)
+
+function quoted(text: string) {
+  return locale.value === 'el' ? `«${text}»` : `“${text}”`
+}
 
 useScrollScene(root, ({ gsap, mm }) => {
   mm.add(desktopMotion, () => {
@@ -34,14 +38,14 @@ useScrollScene(root, ({ gsap, mm }) => {
       {{ copy.recommendationsTitle }}
     </h2>
 
-    <div class="mt-14 grid gap-x-12 gap-y-16 md:mt-20 md:grid-cols-3">
+    <div class="mt-24 grid gap-x-12 gap-y-16 md:mt-28 md:grid-cols-3">
       <figure
         v-for="recommendation in copy.recommendations"
         :key="recommendation.id"
         class="js-rise flex flex-col"
       >
         <blockquote class="font-serif text-[clamp(1.2rem,1.45vw,1.5rem)] italic leading-snug">
-          {{ recommendation.quote }}
+          {{ quoted(recommendation.quote) }}
         </blockquote>
         <figcaption class="mt-auto flex items-center gap-3 pt-8">
           <img

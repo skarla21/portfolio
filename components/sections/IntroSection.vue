@@ -30,7 +30,8 @@ useScrollScene(root, ({ gsap, mm }) => {
 
 <template>
   <section id="intro" ref="root" class="border-t border-ink/15 bg-paper px-6 py-24 md:px-10 md:py-32 lg:px-16">
-    <div class="relative">
+    <!-- pl clears absolute 01 + label on mid widths until centered copy has enough side margin -->
+    <div class="relative md:pl-[11.5rem] min-[1200px]:pl-0">
       <div class="mb-10 md:absolute md:left-0 md:top-0 md:mb-0">
         <h2 class="font-serif text-[clamp(4.5rem,8vw,7.5rem)] leading-none tracking-tight">01</h2>
         <p class="mt-4 text-xs uppercase tracking-[0.22em]">{{ copy.introLabel }}</p>
@@ -38,10 +39,10 @@ useScrollScene(root, ({ gsap, mm }) => {
 
       <div class="mx-auto flex max-w-3xl flex-col gap-8">
         <div
-          class="flex flex-col gap-5 font-display text-[clamp(1.05rem,1.55vw,1.35rem)] leading-[1.45] md:flex-row md:items-start md:gap-5"
+          class="intro-copy flex flex-col gap-8 font-display leading-[1.45] md:flex-row md:items-start md:gap-5"
         >
           <div
-            class="relative mx-auto aspect-square h-[calc(3*1.45*1em)] shrink-0 overflow-hidden rounded-full ring-1 ring-ink/15 md:mx-0"
+            class="intro-pfp relative aspect-square shrink-0 overflow-hidden rounded-full ring-1 ring-ink/15"
           >
             <!-- 860px window at (634, 126) on the 1818×1228 photo. -->
             <img
@@ -59,7 +60,7 @@ useScrollScene(root, ({ gsap, mm }) => {
         <p
           v-for="(line, index) in restLines"
           :key="index"
-          class="js-rise font-display text-[clamp(1.05rem,1.55vw,1.35rem)] leading-[1.45]"
+          class="js-rise intro-copy font-display leading-[1.45]"
         >
           {{ line }}
         </p>
@@ -67,3 +68,28 @@ useScrollScene(root, ({ gsap, mm }) => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.intro-copy {
+  font-size: clamp(1.05rem, 1.55vw, 1.35rem);
+}
+
+.intro-pfp {
+  width: 6.25rem;
+  height: 6.25rem;
+}
+
+@media (min-width: 768px) {
+  .intro-pfp {
+    width: auto;
+    height: calc(3 * 1.45 * 1em);
+  }
+}
+
+/* ~20% larger type + em-sized pfp on very large displays */
+@media (min-width: 85.625rem) {
+  .intro-copy {
+    font-size: 1.62rem;
+  }
+}
+</style>

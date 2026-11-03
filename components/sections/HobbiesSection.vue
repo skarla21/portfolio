@@ -91,7 +91,11 @@ function pick(hobby: Hobby) {
 function sizeCard(width: number, height: number, mediaScale = 1) {
   const card = follow.value;
   if (!card || width < 1 || height < 1) return;
-  const maxW = Math.min(window.innerWidth * 0.5, 32 * 16);
+  // Slight growth past the 32rem cap on large displays (~1370px+)
+  const maxW = Math.min(
+    window.innerWidth * 0.5,
+    32 * 16 + Math.max(0, window.innerWidth - 1370) * 0.1,
+  );
   const maxH = window.innerHeight * 0.72;
   const scale = Math.min(1, maxW / width, maxH / height) * mediaScale;
   card.style.width = `${Math.round(width * scale)}px`;
@@ -433,7 +437,7 @@ useScrollScene(root, ({ gsap, mm }) => {
   >
     <p class="text-xs uppercase tracking-[0.22em]">05</p>
     <h2
-      class="mt-3 max-w-4xl font-serif text-[clamp(3rem,6vw,5.5rem)] leading-[0.95] tracking-tight"
+      class="beyond-title mt-3 max-w-4xl font-serif leading-[0.95] tracking-tight"
     >
       {{ copy.beyondTitle }}
     </h2>
@@ -462,12 +466,6 @@ useScrollScene(root, ({ gsap, mm }) => {
             </span>
           </span>
         </span>
-        <img
-          v-if="!chase && hobby.still"
-          class="hobby-still"
-          :src="hobby.still"
-          alt=""
-        />
       </div>
     </div>
 
@@ -479,13 +477,19 @@ useScrollScene(root, ({ gsap, mm }) => {
 </template>
 
 <style scoped>
+.beyond-title {
+  font-size: clamp(2.35rem, 4.8vw, 4.25rem);
+}
+
 .hobby-field {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  position: relative;
+  width: 100%;
+  min-height: 21rem;
+  margin-top: 0.5rem;
 }
 
 .hobby {
+  position: absolute;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -532,13 +536,6 @@ useScrollScene(root, ({ gsap, mm }) => {
   white-space: nowrap;
 }
 
-.hobby-still {
-  width: 8.5rem;
-  height: 6rem;
-  object-fit: cover;
-  pointer-events: none;
-}
-
 .hobby-follow {
   position: fixed;
   top: 0;
@@ -571,38 +568,46 @@ useScrollScene(root, ({ gsap, mm }) => {
   display: none;
 }
 
+/* Compact phone scatter */
 .hobby-0 {
-  font-size: clamp(1.85rem, 7.2vw, 2.25rem);
+  left: 4%;
+  top: 6%;
+  font-size: clamp(1.35rem, 5.6vw, 1.65rem);
 }
 .hobby-1 {
-  font-size: clamp(1.4rem, 5.4vw, 1.7rem);
+  left: 52%;
+  top: 14%;
+  font-size: clamp(1.05rem, 4.2vw, 1.3rem);
   font-style: italic;
 }
 .hobby-2 {
-  font-size: clamp(1.55rem, 6vw, 1.9rem);
+  left: 8%;
+  top: 34%;
+  font-size: clamp(1.15rem, 4.8vw, 1.45rem);
   font-style: italic;
 }
 .hobby-3 {
-  font-size: clamp(1.75rem, 6.6vw, 2.1rem);
+  left: 48%;
+  top: 42%;
+  font-size: clamp(1.25rem, 5.2vw, 1.55rem);
 }
 .hobby-4 {
-  font-size: clamp(1.65rem, 6.2vw, 2rem);
+  left: 12%;
+  top: 62%;
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
 }
 .hobby-5 {
-  font-size: clamp(1.45rem, 5.6vw, 1.75rem);
+  left: 44%;
+  top: 74%;
+  font-size: clamp(1.1rem, 4.5vw, 1.35rem);
   font-style: italic;
 }
 
 @media (min-width: 768px) {
   .hobby-field {
-    position: relative;
     width: min(78%, 58rem);
     min-height: 28rem;
     margin-inline: auto;
-  }
-
-  .hobby {
-    position: absolute;
   }
 
   /* Scatter: same constellation, X ×1.25 / Y ×0.7 around the cloud center. */
@@ -649,7 +654,7 @@ useScrollScene(root, ({ gsap, mm }) => {
 
   .hobby-field {
     flex: 1;
-    width: min(70%, 56rem);
+    width: min(70%, 58rem);
     min-height: 0;
     margin-top: 0.25rem;
   }
@@ -677,6 +682,31 @@ useScrollScene(root, ({ gsap, mm }) => {
   .hobby-5 {
     left: 53%;
     top: 57%;
+  }
+}
+
+@media (min-width: 85.625rem) {
+  .hobby-field {
+    width: min(72%, 64rem);
+  }
+
+  .hobby-0 {
+    font-size: calc(2.75rem + (100vw - 85.625rem) * 0.01);
+  }
+  .hobby-1 {
+    font-size: calc(1.9rem + (100vw - 85.625rem) * 0.007);
+  }
+  .hobby-2 {
+    font-size: calc(2.15rem + (100vw - 85.625rem) * 0.008);
+  }
+  .hobby-3 {
+    font-size: calc(2.5rem + (100vw - 85.625rem) * 0.009);
+  }
+  .hobby-4 {
+    font-size: calc(2.35rem + (100vw - 85.625rem) * 0.008);
+  }
+  .hobby-5 {
+    font-size: calc(2rem + (100vw - 85.625rem) * 0.007);
   }
 }
 </style>
