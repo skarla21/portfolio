@@ -42,12 +42,50 @@ function stageRef(id: string) {
   return register;
 }
 
+// GSAP moves stages via parent transform; IO ratios go stale on reverse scroll.
+function measureRatios() {
+  const viewW = window.innerWidth;
+  const viewH = window.innerHeight;
+
+  stages.forEach((el, id) => {
+    const rect = el.getBoundingClientRect();
+    const area = rect.width * rect.height;
+    if (area <= 0) {
+      ratios.set(id, 0);
+      return;
+    }
+    const visibleW = Math.max(
+      0,
+      Math.min(rect.right, viewW) - Math.max(rect.left, 0),
+    );
+    const visibleH = Math.max(
+      0,
+      Math.min(rect.bottom, viewH) - Math.max(rect.top, 0),
+    );
+    ratios.set(id, (visibleW * visibleH) / area);
+  });
+}
+
+function ensurePlaying() {
+  const video = activeVideo.value;
+  if (!video || reduceMotion) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  if (video.readyState >= 2) frameShown.value = true;
+  if (video.paused) void video.play().catch(() => {});
+}
+
 function pickActive() {
+  measureRatios();
   const next = reduceMotion
     ? null
-    : selectActiveProjectId(ratios, failed.value);
+    : selectActiveProjectId(ratios, failed.value, activeId.value);
 
-  if (next === activeId.value) return;
+  if (next === activeId.value) {
+    ensurePlaying();
+    return;
+  }
   frameShown.value = false;
   activeId.value = next;
 }
@@ -55,50 +93,43 @@ function pickActive() {
 function bindStages() {
   if (stageObserver) return;
   stageObserver = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        const el = entry.target;
-        if (!(el instanceof HTMLElement)) continue;
-        const id = el.dataset.projectId;
-        if (!id) continue;
-        ratios.set(id, entry.intersectionRatio);
-      }
+    () => {
       pickActive();
     },
-    { threshold: [0, 0.25, ACTIVE_RATIO, 0.6, 0.75, 1] },
+    { threshold: [0, 0.05, 0.15, ACTIVE_RATIO, 0.6, 0.75, 1] },
   );
   stages.forEach((stage) => stageObserver?.observe(stage));
 }
 
-function unloadVideo(video: HTMLVideoElement | null) {
-  if (!video) return;
-  video.pause();
-  video.removeAttribute("src");
-  video.load();
+// Ref callback only tracks the element. Do not pause/clear src on null —
+// Vue can fire unmount null after the replacement mount, which froze playback.
+function setActiveVideo(el: unknown) {
+  activeVideo.value = el instanceof HTMLVideoElement ? el : null;
 }
 
-function setActiveVideo(el: unknown) {
-  const node = el instanceof HTMLVideoElement ? el : null;
-  const prev = activeVideo.value;
-  if (prev === node) return;
-  unloadVideo(prev);
-  activeVideo.value = node;
-  if (!node || reduceMotion) return;
-  node.muted = true;
-  node.defaultMuted = true;
-  node.playsInline = true;
-  // preload="none" never fetches until play/load — kick off playback here
-  // so loadeddata can fire and reveal the frame over the poster.
-  void node.play().catch(() => {});
+async function startActiveVideo() {
+  await nextTick();
+  const video = activeVideo.value;
+  if (!video || !activeId.value || reduceMotion) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  try {
+    video.currentTime = 0;
+  } catch {
+    /* ignore seek before metadata */
+  }
+  if (video.readyState >= 2) frameShown.value = true;
+  void video.play().catch(() => {});
 }
+
+watch(activeId, () => {
+  void startActiveVideo();
+});
 
 function onFrameReady() {
   frameShown.value = true;
-  const video = activeVideo.value;
-  if (!video || reduceMotion) return;
-  video.muted = true;
-  video.defaultMuted = true;
-  void video.play().catch(() => {});
+  ensurePlaying();
 }
 
 function onFrameError(id: string) {
@@ -114,7 +145,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   stageObserver?.disconnect();
-  unloadVideo(activeVideo.value);
+  activeVideo.value?.pause();
   activeVideo.value = null;
 });
 
@@ -137,6 +168,9 @@ useScrollScene(root, ({ gsap, mm }) => {
         scrub: 1,
         invalidateOnRefresh: true,
         anticipatePin: 1,
+        onUpdate: () => {
+          pickActive();
+        },
       },
     });
   });
