@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useLocale } from '~/composables/useLocale'
-import type { Locale } from '~/content/site'
+import type { Locale, NavLink } from '~/content/site'
 
-const { locale, copy, setLocale } = useLocale()
+const { locale, copy, localePath, setLocale } = useLocale()
+const route = useRoute()
 const header = ref<HTMLElement | null>(null)
 const bar = ref<HTMLElement | null>(null)
 const menuOpen = ref(false)
@@ -18,9 +19,17 @@ const menuToggleLabel = computed(() => {
   return menuOpen.value ? 'Close menu' : 'Open menu'
 })
 
+const homePath = computed(() => localePath('/'))
+
+function navTo(link: NavLink) {
+  const path = localePath(link.path)
+  if (!link.hash) return path
+  return { path, hash: link.hash }
+}
+
 function toggleLocale() {
   const next: Locale = locale.value === 'el' ? 'en' : 'el'
-  setLocale(next)
+  void setLocale(next)
 }
 
 function toggleMenu() {
@@ -51,6 +60,13 @@ onMounted(() => {
   window.addEventListener('resize', onResize)
   window.addEventListener('keydown', onKeydown)
 })
+
+watch(
+  () => route.fullPath,
+  () => {
+    closeMenu()
+  },
+)
 
 watch(locale, async () => {
   await nextTick()
@@ -88,26 +104,26 @@ onUnmounted(() => {
         <span class="menu-toggle-icon" :data-open="menuOpen" aria-hidden="true" />
       </button>
 
-      <a
-        href="#intro"
+      <NuxtLink
+        :to="{ path: homePath, hash: '#intro' }"
         class="min-w-0 flex-1 truncate font-serif text-lg leading-none tracking-tight md:flex-none md:text-xl"
         @click="closeMenu"
       >
         {{ copy.name }}
-      </a>
+      </NuxtLink>
 
       <nav
-        class="ml-auto hidden items-center gap-x-4 text-sm md:flex"
+        class="nav-links ml-auto hidden max-w-[min(100%,42rem)] items-center gap-x-2.5 overflow-x-auto text-sm lg:max-w-none lg:gap-x-3.5 md:flex"
         :aria-label="menuLabel"
       >
-        <a
+        <NuxtLink
           v-for="link in copy.nav"
-          :key="link.href"
-          :href="link.href"
+          :key="`${link.path}${link.hash ?? ''}`"
+          :to="navTo(link)"
           class="shrink-0 underline-offset-4 hover:underline"
         >
           {{ link.label }}
-        </a>
+        </NuxtLink>
       </nav>
 
       <div class="flex shrink-0 items-center gap-2">
@@ -134,15 +150,15 @@ onUnmounted(() => {
       class="border-t border-ink/10 bg-paper px-4 py-3 md:hidden"
     >
       <nav class="flex flex-col" :aria-label="menuLabel">
-        <a
+        <NuxtLink
           v-for="link in copy.nav"
-          :key="link.href"
-          :href="link.href"
+          :key="`m-${link.path}${link.hash ?? ''}`"
+          :to="navTo(link)"
           class="border-b border-ink/10 px-1 py-3 text-base last:border-b-0 hover:underline"
           @click="closeMenu"
         >
           {{ link.label }}
-        </a>
+        </NuxtLink>
       </nav>
     </div>
   </header>

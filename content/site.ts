@@ -59,6 +59,14 @@ export type Recommendation = {
   imagePosition: string;
 };
 
+export type NavLink = {
+  label: string;
+  /** Locale-free path: `/`, `/services`, `/faq`. */
+  path: string;
+  /** In-page hash on the home page, e.g. `#intro`. */
+  hash?: string;
+};
+
 export type Copy = {
   name: string;
   eyebrow: string;
@@ -85,6 +93,7 @@ export type Copy = {
   recommendationsKicker: string;
   recommendationsTitle: string;
   recommendations: Recommendation[];
+  beyondKicker: string;
   beyondTitle: string;
   hobbies: Hobby[];
   contactKicker: string;
@@ -94,9 +103,7 @@ export type Copy = {
   emailLabel: string;
   phoneLabel: string;
   address: string;
-  seoTitle: string;
-  seoDescription: string;
-  nav: { href: string; label: string }[];
+  nav: NavLink[];
   email: string;
   phone: string;
   phoneHref: string;
@@ -104,7 +111,7 @@ export type Copy = {
   github: string;
 };
 
-const contact = {
+export const contact = {
   email: "antwnis_skarlatos@yahoo.com",
   phone: "+30 6983696885",
   phoneHref: "tel:+306983696885",
@@ -118,36 +125,10 @@ export const siteUrl = "https://antonis-skarlatos.vercel.app";
 export const legacyProductionHost = "portfolio-dun-pi-hv8qwmqz93.vercel.app";
 
 export const share = {
-  title: "Antonis Skarlatos - Portfolio",
+  title: "Antonis Skarlatos | IT services & website development",
   description:
-    "Web developer, data scientist, and physicist in Athens. Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
+    "IT and software services in Athens: websites, e-shops, custom apps, consulting, QR/NFC, SEO & AEO. Υπηρεσίες πληροφορικής και λογισμικού στην Αθήνα.",
   image: `${siteUrl}/og.png`,
-};
-
-export const profilePage = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  url: siteUrl,
-  mainEntity: {
-    "@type": "Person",
-    name: "Antonis Skarlatos",
-    alternateName: "Αντώνης Σκαρλάτος",
-    jobTitle: ["Web Developer", "Data analyst", "Physicist"],
-    worksFor: {
-      "@type": "Organization",
-      name: "FactSet",
-    },
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Athens",
-      postalCode: "16232",
-      addressCountry: "GR",
-    },
-    email: contact.email,
-    telephone: contact.phone,
-    sameAs: [contact.linkedin, contact.github],
-    url: siteUrl,
-  },
 };
 
 const pergamos = "https://pergamos.lib.uoa.gr/en/item/uoadl:3310771#fields";
@@ -357,7 +338,7 @@ export const copies: Record<Locale, Copy> = {
       { label: "12/2022 TestDome: Python", href: certificates.python },
     ],
     skillsLabel: "Δεξιότητες",
-    workKicker: "03 — Επιλεγμένα έργα",
+    workKicker: "04 — Επιλεγμένα έργα",
     workTitle: "Freelance projects.",
     workIntro:
       "Ιστοσελίδες και εφαρμογές που ανέπτυξα μόνος ή ως μέλος μιας μικρής ομάδας.",
@@ -402,7 +383,7 @@ export const copies: Record<Locale, Copy> = {
         accent: accents.mathe,
       },
     ],
-    recommendationsKicker: "04",
+    recommendationsKicker: "05",
     recommendationsTitle: "Τι είπαν αυτοί που συνεργαστήκαμε",
     recommendations: [
       {
@@ -436,6 +417,7 @@ export const copies: Record<Locale, Copy> = {
         imagePosition: "center",
       },
     ],
+    beyondKicker: "06",
     beyondTitle: "Πέρα από την οθόνη",
     hobbies: hobbyList({
       music: "Μουσική",
@@ -445,22 +427,20 @@ export const copies: Record<Locale, Copy> = {
       chess: "Σκάκι",
       climbing: "Αναρρίχηση",
     }),
-    contactKicker: "06 — Επικοινωνία",
+    contactKicker: "07 — Επικοινωνία",
     contactTitle: "Ας επικοινωνήσουμε.",
     emailLabel: "E-mail",
     phoneLabel: "Τηλέφωνο",
     cvLabel: "Βιογραφικό",
     address: "Αθήνα, 16232",
-    seoTitle: "Antonis Skarlatos - Portfolio",
-    seoDescription:
-      "Αντώνης Σκαρλάτος (Antonis Skarlatos). Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
     nav: [
-      { href: "#intro", label: "Εισαγωγή" },
-      { href: "#journey", label: "Πορεία" },
-      { href: "#work", label: "Έργα" },
-      { href: "#recommendations", label: "Συστάσεις" },
-      { href: "#beyond", label: "Ενδιαφέροντα" },
-      { href: "#contact", label: "Επικοινωνία" },
+      { path: "/", hash: "#intro", label: "Εισαγωγή" },
+      { path: "/", hash: "#journey", label: "Πορεία" },
+      { path: "/", hash: "#services", label: "Υπηρεσίες" },
+      { path: "/", hash: "#work", label: "Έργα" },
+      { path: "/", hash: "#recommendations", label: "Συστάσεις" },
+      { path: "/", hash: "#beyond", label: "Ενδιαφέροντα" },
+      { path: "/", hash: "#contact", label: "Επικοινωνία" },
     ],
   },
   en: {
@@ -566,7 +546,7 @@ export const copies: Record<Locale, Copy> = {
       { label: "12/2022 TestDome: Python", href: certificates.python },
     ],
     skillsLabel: "Skills",
-    workKicker: "03 — Selected work",
+    workKicker: "04 — Selected work",
     workTitle: "Freelance projects.",
     workIntro:
       "Sites and applications built alone, or as part of a small team.",
@@ -610,7 +590,7 @@ export const copies: Record<Locale, Copy> = {
         accent: accents.mathe,
       },
     ],
-    recommendationsKicker: "04",
+    recommendationsKicker: "05",
     recommendationsTitle: "From people I've worked with",
     recommendations: [
       {
@@ -644,6 +624,7 @@ export const copies: Record<Locale, Copy> = {
         imagePosition: "center",
       },
     ],
+    beyondKicker: "06",
     beyondTitle: "Beyond the screen",
     hobbies: hobbyList({
       music: "Music",
@@ -653,22 +634,20 @@ export const copies: Record<Locale, Copy> = {
       chess: "Chess",
       climbing: "Climbing",
     }),
-    contactKicker: "06 — Contact",
+    contactKicker: "07 — Contact",
     contactTitle: "Let's connect.",
     emailLabel: "E-mail",
     phoneLabel: "Phone",
     cvLabel: "CV",
     address: "Athens, 16232",
-    seoTitle: "Antonis Skarlatos - Portfolio",
-    seoDescription:
-      "Antonis Skarlatos (Αντώνης Σκαρλάτος). Web developer, data scientist, and physicist in Athens.",
     nav: [
-      { href: "#intro", label: "Intro" },
-      { href: "#journey", label: "Journey" },
-      { href: "#work", label: "Work" },
-      { href: "#recommendations", label: "Recommendations" },
-      { href: "#beyond", label: "Beyond" },
-      { href: "#contact", label: "Contact" },
+      { path: "/", hash: "#intro", label: "Intro" },
+      { path: "/", hash: "#journey", label: "Journey" },
+      { path: "/", hash: "#services", label: "Services" },
+      { path: "/", hash: "#work", label: "Work" },
+      { path: "/", hash: "#recommendations", label: "Recommendations" },
+      { path: "/", hash: "#beyond", label: "Beyond" },
+      { path: "/", hash: "#contact", label: "Contact" },
     ],
   },
 };

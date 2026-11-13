@@ -435,7 +435,7 @@ useScrollScene(root, ({ gsap, mm }) => {
     ref="root"
     class="bg-paper px-6 py-24 md:px-10 md:py-32 lg:px-16"
   >
-    <p class="text-xs uppercase tracking-[0.22em]">05</p>
+    <p class="text-xs uppercase tracking-[0.22em]">{{ copy.beyondKicker }}</p>
     <h2
       class="beyond-title mt-3 max-w-4xl font-serif leading-[0.95] tracking-tight"
     >

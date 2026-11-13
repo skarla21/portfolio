@@ -6,12 +6,13 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: "el" },
-      title: "Antonis Skarlatos - Portfolio",
+      title:
+        "Αντώνης Σκαρλάτος | Υπηρεσίες πληροφορικής & ανάπτυξη website Αθήνα",
       meta: [
         {
           name: "description",
           content:
-            "Αντώνης Σκαρλάτος (Antonis Skarlatos). Προγραμματιστής, αναλυτής δεδομένων και φυσικός στην Αθήνα.",
+            "Παροχή υπηρεσιών πληροφορικής και λογισμικού στην Αθήνα: ανάπτυξη ιστοσελίδων, e-shops, εφαρμογές, συμβουλές, QR/NFC και SEO & AEO.",
         },
         {
           name: "google-site-verification",

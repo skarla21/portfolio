@@ -5,8 +5,10 @@ import ContactMail from '~/components/contact/ContactMail.vue'
 import ContactPhone from '~/components/contact/ContactPhone.vue'
 import { desktopMotion, useScrollScene } from '~/composables/useScrollScene'
 import { useLocale } from '~/composables/useLocale'
+import { offeringsByLocale } from '~/content/offerings'
 
-const { copy } = useLocale()
+const { copy, locale, localePath } = useLocale()
+const offerings = computed(() => offeringsByLocale[locale.value])
 const root = ref<HTMLElement | null>(null)
 
 const linkedinPath =
@@ -106,6 +108,12 @@ useScrollScene(root, ({ gsap, mm }) => {
           </a>
         </li>
       </ul>
+      <NuxtLink
+        :to="localePath('/faq')"
+        class="text-[1.3125rem] text-night-soft underline underline-offset-4 hover:text-paper"
+      >
+        {{ offerings.contactFaqLabel }}
+      </NuxtLink>
     </div>
 
     <p class="text-center text-sm text-night-soft">{{ copy.name }} · {{ copy.address }}</p>
