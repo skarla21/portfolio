@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ContactSection from '~/components/sections/ContactSection.vue'
-import HeroSection from '~/components/sections/HeroSection.vue'
 import HobbiesSection from '~/components/sections/HobbiesSection.vue'
 import IntroSection from '~/components/sections/IntroSection.vue'
 import JourneySection from '~/components/sections/JourneySection.vue'
@@ -47,10 +46,9 @@ useHead({
 
 <template>
   <div>
-    <a class="skip" href="#top">{{ copy.skip }}</a>
+    <a class="skip" href="#intro">{{ copy.skip }}</a>
     <SiteNav />
     <main>
-      <HeroSection />
       <IntroSection />
       <JourneySection />
       <SkillsSection />

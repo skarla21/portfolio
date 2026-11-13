@@ -61,13 +61,10 @@ export type Recommendation = {
 
 export type Copy = {
   name: string;
-  nameLines: [string, string];
   eyebrow: string;
   place: string;
   lede: string;
   disciplines: string;
-  viewProjects: string;
-  scroll: string;
   skip: string;
   introLabel: string;
   profile: string[];
@@ -264,13 +261,10 @@ export const copies: Record<Locale, Copy> = {
   el: {
     ...contact,
     name: "Αντώνης Σκαρλάτος",
-    nameLines: ["Αντώνης", "Σκαρλάτος"],
     eyebrow: "Portfolio / 2026",
     place: "Αθήνα",
     lede: "Φυσικός στην εκπαίδευση, προγραμματιστής στην πράξη.",
     disciplines: "Φυσική · Data · Web",
-    viewProjects: "Δες τα έργα",
-    scroll: "Κύλιση",
     skip: "Μετάβαση στο περιεχόμενο",
     introLabel: "Εισαγωγή",
     profile: [
@@ -472,13 +466,10 @@ export const copies: Record<Locale, Copy> = {
   en: {
     ...contact,
     name: "Antonis Skarlatos",
-    nameLines: ["Antonis", "Skarlatos"],
     eyebrow: "Portfolio / 2026",
     place: "Athens",
     lede: "Physicist by training, developer by practice.",
     disciplines: "Physics · Data · Web",
-    viewProjects: "View projects",
-    scroll: "Scroll",
     skip: "Skip to content",
     introLabel: "Introduction",
     profile: [
